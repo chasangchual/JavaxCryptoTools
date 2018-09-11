@@ -129,7 +129,7 @@ SUN version 1.8
 {{CertPathValidator}}
 {{Signature}}
 {{CertPathBuilder}}
-{{MessageDigesWrapper}}
+{{MessageDigestWrapper}}
 {{CertStore}}
 {{KeyFactory}}
 {{AlgorithmParameters}}
@@ -215,33 +215,33 @@ Algorithm:PKIX
  SUN: CertPathBuilder.PKIX -> sun.security.provider.certpath.SunCertPathBuilder
   attributes: {ImplementedIn=Software, ValidationAlgorithm=RFC3280}
 
-{{MessageDigesWrapper}}
+{{MessageDigestWrapper}}
 Algorithm:MD2
- SUN: MessageDigesWrapper.MD2 -> sun.security.provider.MD2
+ SUN: MessageDigestWrapper.MD2 -> sun.security.provider.MD2
 
 Algorithm:MD5
- SUN: MessageDigesWrapper.MD5 -> sun.security.provider.MD5
+ SUN: MessageDigestWrapper.MD5 -> sun.security.provider.MD5
   attributes: {ImplementedIn=Software}
 
 Algorithm:SHA
- SUN: MessageDigesWrapper.SHA -> sun.security.provider.SHA
+ SUN: MessageDigestWrapper.SHA -> sun.security.provider.SHA
   aliases: [SHA-1, SHA1, 1.3.14.3.2.26, OID.1.3.14.3.2.26]
   attributes: {ImplementedIn=Software}
 
 Algorithm:SHA-224
- SUN: MessageDigesWrapper.SHA-224 -> sun.security.provider.SHA2$SHA224
+ SUN: MessageDigestWrapper.SHA-224 -> sun.security.provider.SHA2$SHA224
   aliases: [2.16.840.1.101.3.4.2.4, OID.2.16.840.1.101.3.4.2.4]
 
 Algorithm:SHA-256
- SUN: MessageDigesWrapper.SHA-256 -> sun.security.provider.SHA2$SHA256
+ SUN: MessageDigestWrapper.SHA-256 -> sun.security.provider.SHA2$SHA256
   aliases: [2.16.840.1.101.3.4.2.1, OID.2.16.840.1.101.3.4.2.1]
 
 Algorithm:SHA-384
- SUN: MessageDigesWrapper.SHA-384 -> sun.security.provider.SHA5$SHA384
+ SUN: MessageDigestWrapper.SHA-384 -> sun.security.provider.SHA5$SHA384
   aliases: [2.16.840.1.101.3.4.2.2, OID.2.16.840.1.101.3.4.2.2]
 
 Algorithm:SHA-512
- SUN: MessageDigesWrapper.SHA-512 -> sun.security.provider.SHA5$SHA512
+ SUN: MessageDigestWrapper.SHA-512 -> sun.security.provider.SHA5$SHA512
   aliases: [2.16.840.1.101.3.4.2.3, OID.2.16.840.1.101.3.4.2.3]
 
 {{CertStore}}
@@ -1147,7 +1147,7 @@ BC version 1.6
 {{Signature}}
 {{Cipher}}
 {{CertPathBuilder}}
-{{MessageDigesWrapper}}
+{{MessageDigestWrapper}}
 {{KeyAgreement}}
 {{KeyGenerator}}
 {{SecretKeyFactory}}
@@ -3238,238 +3238,238 @@ Algorithm:RFC3280
 Algorithm:PKIX
  BC: CertPathBuilder.PKIX -> org.bouncycastle.jce.provider.PKIXCertPathBuilderSpi
 
-{{MessageDigesWrapper}}
+{{MessageDigestWrapper}}
 Algorithm:GOST3411
- BC: MessageDigesWrapper.GOST3411 -> org.bouncycastle.jcajce.provider.digest.GOST3411$Digest
+ BC: MessageDigestWrapper.GOST3411 -> org.bouncycastle.jcajce.provider.digest.GOST3411$Digest
   aliases: [GOST, GOST-3411, 1.2.643.2.2.9]
 
 Algorithm:GOST3411-2012-256
- BC: MessageDigesWrapper.GOST3411-2012-256 -> org.bouncycastle.jcajce.provider.digest.GOST3411$Digest2012_256
+ BC: MessageDigestWrapper.GOST3411-2012-256 -> org.bouncycastle.jcajce.provider.digest.GOST3411$Digest2012_256
   aliases: [GOST-2012-256, GOST-3411-2012-256, 1.2.643.7.1.1.2.2]
 
 Algorithm:GOST3411-2012-512
- BC: MessageDigesWrapper.GOST3411-2012-512 -> org.bouncycastle.jcajce.provider.digest.GOST3411$Digest2012_512
+ BC: MessageDigestWrapper.GOST3411-2012-512 -> org.bouncycastle.jcajce.provider.digest.GOST3411$Digest2012_512
   aliases: [GOST-2012-512, GOST-3411-2012-512, 1.2.643.7.1.1.2.3]
 
 Algorithm:KECCAK-224
- BC: MessageDigesWrapper.KECCAK-224 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest224
+ BC: MessageDigestWrapper.KECCAK-224 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest224
 
 Algorithm:KECCAK-288
- BC: MessageDigesWrapper.KECCAK-288 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest288
+ BC: MessageDigestWrapper.KECCAK-288 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest288
 
 Algorithm:KECCAK-256
- BC: MessageDigesWrapper.KECCAK-256 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest256
+ BC: MessageDigestWrapper.KECCAK-256 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest256
 
 Algorithm:KECCAK-384
- BC: MessageDigesWrapper.KECCAK-384 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest384
+ BC: MessageDigestWrapper.KECCAK-384 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest384
 
 Algorithm:KECCAK-512
- BC: MessageDigesWrapper.KECCAK-512 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest512
+ BC: MessageDigestWrapper.KECCAK-512 -> org.bouncycastle.jcajce.provider.digest.Keccak$Digest512
 
 Algorithm:MD2
- BC: MessageDigesWrapper.MD2 -> org.bouncycastle.jcajce.provider.digest.MD2$Digest
+ BC: MessageDigestWrapper.MD2 -> org.bouncycastle.jcajce.provider.digest.MD2$Digest
   aliases: [1.2.840.113549.2.2]
 
 Algorithm:MD4
- BC: MessageDigesWrapper.MD4 -> org.bouncycastle.jcajce.provider.digest.MD4$Digest
+ BC: MessageDigestWrapper.MD4 -> org.bouncycastle.jcajce.provider.digest.MD4$Digest
   aliases: [1.2.840.113549.2.4]
 
 Algorithm:MD5
- BC: MessageDigesWrapper.MD5 -> org.bouncycastle.jcajce.provider.digest.MD5$Digest
+ BC: MessageDigestWrapper.MD5 -> org.bouncycastle.jcajce.provider.digest.MD5$Digest
   aliases: [1.2.840.113549.2.5]
 
 Algorithm:SHA-1
- BC: MessageDigesWrapper.SHA-1 -> org.bouncycastle.jcajce.provider.digest.SHA1$Digest
+ BC: MessageDigestWrapper.SHA-1 -> org.bouncycastle.jcajce.provider.digest.SHA1$Digest
   aliases: [SHA1, SHA, 1.3.14.3.2.26]
 
 Algorithm:RIPEMD128
- BC: MessageDigesWrapper.RIPEMD128 -> org.bouncycastle.jcajce.provider.digest.RIPEMD128$Digest
+ BC: MessageDigestWrapper.RIPEMD128 -> org.bouncycastle.jcajce.provider.digest.RIPEMD128$Digest
   aliases: [1.3.36.3.2.2]
 
 Algorithm:RIPEMD160
- BC: MessageDigesWrapper.RIPEMD160 -> org.bouncycastle.jcajce.provider.digest.RIPEMD160$Digest
+ BC: MessageDigestWrapper.RIPEMD160 -> org.bouncycastle.jcajce.provider.digest.RIPEMD160$Digest
   aliases: [1.3.36.3.2.1]
 
 Algorithm:RIPEMD256
- BC: MessageDigesWrapper.RIPEMD256 -> org.bouncycastle.jcajce.provider.digest.RIPEMD256$Digest
+ BC: MessageDigestWrapper.RIPEMD256 -> org.bouncycastle.jcajce.provider.digest.RIPEMD256$Digest
   aliases: [1.3.36.3.2.3]
 
 Algorithm:RIPEMD320
- BC: MessageDigesWrapper.RIPEMD320 -> org.bouncycastle.jcajce.provider.digest.RIPEMD320$Digest
+ BC: MessageDigestWrapper.RIPEMD320 -> org.bouncycastle.jcajce.provider.digest.RIPEMD320$Digest
 
 Algorithm:SHA-224
- BC: MessageDigesWrapper.SHA-224 -> org.bouncycastle.jcajce.provider.digest.SHA224$Digest
+ BC: MessageDigestWrapper.SHA-224 -> org.bouncycastle.jcajce.provider.digest.SHA224$Digest
   aliases: [SHA224, 2.16.840.1.101.3.4.2.4]
 
 Algorithm:SHA-256
- BC: MessageDigesWrapper.SHA-256 -> org.bouncycastle.jcajce.provider.digest.SHA256$Digest
+ BC: MessageDigestWrapper.SHA-256 -> org.bouncycastle.jcajce.provider.digest.SHA256$Digest
   aliases: [SHA256, 2.16.840.1.101.3.4.2.1]
 
 Algorithm:SHA-384
- BC: MessageDigesWrapper.SHA-384 -> org.bouncycastle.jcajce.provider.digest.SHA384$Digest
+ BC: MessageDigestWrapper.SHA-384 -> org.bouncycastle.jcajce.provider.digest.SHA384$Digest
   aliases: [SHA384, 2.16.840.1.101.3.4.2.2]
 
 Algorithm:SHA-512
- BC: MessageDigesWrapper.SHA-512 -> org.bouncycastle.jcajce.provider.digest.SHA512$Digest
+ BC: MessageDigestWrapper.SHA-512 -> org.bouncycastle.jcajce.provider.digest.SHA512$Digest
   aliases: [SHA512, 2.16.840.1.101.3.4.2.3]
 
 Algorithm:SHA-512/224
- BC: MessageDigesWrapper.SHA-512/224 -> org.bouncycastle.jcajce.provider.digest.SHA512$DigestT224
+ BC: MessageDigestWrapper.SHA-512/224 -> org.bouncycastle.jcajce.provider.digest.SHA512$DigestT224
   aliases: [SHA512/224, 2.16.840.1.101.3.4.2.5]
 
 Algorithm:SHA-512/256
- BC: MessageDigesWrapper.SHA-512/256 -> org.bouncycastle.jcajce.provider.digest.SHA512$DigestT256
+ BC: MessageDigestWrapper.SHA-512/256 -> org.bouncycastle.jcajce.provider.digest.SHA512$DigestT256
   aliases: [SHA512256, 2.16.840.1.101.3.4.2.6]
 
 Algorithm:SHA3-224
- BC: MessageDigesWrapper.SHA3-224 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest224
+ BC: MessageDigestWrapper.SHA3-224 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest224
 
 Algorithm:SHA3-256
- BC: MessageDigesWrapper.SHA3-256 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest256
+ BC: MessageDigestWrapper.SHA3-256 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest256
 
 Algorithm:SHA3-384
- BC: MessageDigesWrapper.SHA3-384 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest384
+ BC: MessageDigestWrapper.SHA3-384 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest384
 
 Algorithm:SHA3-512
- BC: MessageDigesWrapper.SHA3-512 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest512
+ BC: MessageDigestWrapper.SHA3-512 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest512
 
 Algorithm:2.16.840.1.101.3.4.2.7
- BC: MessageDigesWrapper.2.16.840.1.101.3.4.2.7 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest224
+ BC: MessageDigestWrapper.2.16.840.1.101.3.4.2.7 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest224
 
 Algorithm:OID.2.16.840.1.101.3.4.2.7
- BC: MessageDigesWrapper.OID.2.16.840.1.101.3.4.2.7 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest224
+ BC: MessageDigestWrapper.OID.2.16.840.1.101.3.4.2.7 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest224
 
 Algorithm:2.16.840.1.101.3.4.2.8
- BC: MessageDigesWrapper.2.16.840.1.101.3.4.2.8 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest256
+ BC: MessageDigestWrapper.2.16.840.1.101.3.4.2.8 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest256
 
 Algorithm:OID.2.16.840.1.101.3.4.2.8
- BC: MessageDigesWrapper.OID.2.16.840.1.101.3.4.2.8 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest256
+ BC: MessageDigestWrapper.OID.2.16.840.1.101.3.4.2.8 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest256
 
 Algorithm:2.16.840.1.101.3.4.2.9
- BC: MessageDigesWrapper.2.16.840.1.101.3.4.2.9 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest384
+ BC: MessageDigestWrapper.2.16.840.1.101.3.4.2.9 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest384
 
 Algorithm:OID.2.16.840.1.101.3.4.2.9
- BC: MessageDigesWrapper.OID.2.16.840.1.101.3.4.2.9 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest384
+ BC: MessageDigestWrapper.OID.2.16.840.1.101.3.4.2.9 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest384
 
 Algorithm:2.16.840.1.101.3.4.2.10
- BC: MessageDigesWrapper.2.16.840.1.101.3.4.2.10 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest512
+ BC: MessageDigestWrapper.2.16.840.1.101.3.4.2.10 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest512
 
 Algorithm:OID.2.16.840.1.101.3.4.2.10
- BC: MessageDigesWrapper.OID.2.16.840.1.101.3.4.2.10 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest512
+ BC: MessageDigestWrapper.OID.2.16.840.1.101.3.4.2.10 -> org.bouncycastle.jcajce.provider.digest.SHA3$Digest512
 
 Algorithm:Skein-256-128
- BC: MessageDigesWrapper.Skein-256-128 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_128
+ BC: MessageDigestWrapper.Skein-256-128 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_128
 
 Algorithm:Skein-256-160
- BC: MessageDigesWrapper.Skein-256-160 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_160
+ BC: MessageDigestWrapper.Skein-256-160 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_160
 
 Algorithm:Skein-256-224
- BC: MessageDigesWrapper.Skein-256-224 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_224
+ BC: MessageDigestWrapper.Skein-256-224 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_224
 
 Algorithm:Skein-256-256
- BC: MessageDigesWrapper.Skein-256-256 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_256
+ BC: MessageDigestWrapper.Skein-256-256 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_256_256
 
 Algorithm:Skein-512-128
- BC: MessageDigesWrapper.Skein-512-128 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_128
+ BC: MessageDigestWrapper.Skein-512-128 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_128
 
 Algorithm:Skein-512-160
- BC: MessageDigesWrapper.Skein-512-160 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_160
+ BC: MessageDigestWrapper.Skein-512-160 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_160
 
 Algorithm:Skein-512-224
- BC: MessageDigesWrapper.Skein-512-224 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_224
+ BC: MessageDigestWrapper.Skein-512-224 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_224
 
 Algorithm:Skein-512-256
- BC: MessageDigesWrapper.Skein-512-256 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_256
+ BC: MessageDigestWrapper.Skein-512-256 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_256
 
 Algorithm:Skein-512-384
- BC: MessageDigesWrapper.Skein-512-384 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_384
+ BC: MessageDigestWrapper.Skein-512-384 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_384
 
 Algorithm:Skein-512-512
- BC: MessageDigesWrapper.Skein-512-512 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_512
+ BC: MessageDigestWrapper.Skein-512-512 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_512_512
 
 Algorithm:Skein-1024-384
- BC: MessageDigesWrapper.Skein-1024-384 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_1024_384
+ BC: MessageDigestWrapper.Skein-1024-384 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_1024_384
 
 Algorithm:Skein-1024-512
- BC: MessageDigesWrapper.Skein-1024-512 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_1024_512
+ BC: MessageDigestWrapper.Skein-1024-512 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_1024_512
 
 Algorithm:Skein-1024-1024
- BC: MessageDigesWrapper.Skein-1024-1024 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_1024_1024
+ BC: MessageDigestWrapper.Skein-1024-1024 -> org.bouncycastle.jcajce.provider.digest.Skein$Digest_1024_1024
 
 Algorithm:SM3
- BC: MessageDigesWrapper.SM3 -> org.bouncycastle.jcajce.provider.digest.SM3$Digest
+ BC: MessageDigestWrapper.SM3 -> org.bouncycastle.jcajce.provider.digest.SM3$Digest
   aliases: [SM3, 1.2.156.197.1.401]
 
 Algorithm:TIGER
- BC: MessageDigesWrapper.TIGER -> org.bouncycastle.jcajce.provider.digest.Tiger$Digest
+ BC: MessageDigestWrapper.TIGER -> org.bouncycastle.jcajce.provider.digest.Tiger$Digest
 
 Algorithm:WHIRLPOOL
- BC: MessageDigesWrapper.WHIRLPOOL -> org.bouncycastle.jcajce.provider.digest.Whirlpool$Digest
+ BC: MessageDigestWrapper.WHIRLPOOL -> org.bouncycastle.jcajce.provider.digest.Whirlpool$Digest
 
 Algorithm:1.0.10118.3.0.55
- BC: MessageDigesWrapper.1.0.10118.3.0.55 -> org.bouncycastle.jcajce.provider.digest.Whirlpool$Digest
+ BC: MessageDigestWrapper.1.0.10118.3.0.55 -> org.bouncycastle.jcajce.provider.digest.Whirlpool$Digest
 
 Algorithm:OID.1.0.10118.3.0.55
- BC: MessageDigesWrapper.OID.1.0.10118.3.0.55 -> org.bouncycastle.jcajce.provider.digest.Whirlpool$Digest
+ BC: MessageDigestWrapper.OID.1.0.10118.3.0.55 -> org.bouncycastle.jcajce.provider.digest.Whirlpool$Digest
 
 Algorithm:BLAKE2B-512
- BC: MessageDigesWrapper.BLAKE2B-512 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b512
+ BC: MessageDigestWrapper.BLAKE2B-512 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b512
   aliases: [1.3.6.1.4.1.1722.12.2.1.16]
 
 Algorithm:BLAKE2B-384
- BC: MessageDigesWrapper.BLAKE2B-384 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b384
+ BC: MessageDigestWrapper.BLAKE2B-384 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b384
   aliases: [1.3.6.1.4.1.1722.12.2.1.12]
 
 Algorithm:BLAKE2B-256
- BC: MessageDigesWrapper.BLAKE2B-256 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b256
+ BC: MessageDigestWrapper.BLAKE2B-256 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b256
   aliases: [1.3.6.1.4.1.1722.12.2.1.8]
 
 Algorithm:BLAKE2B-160
- BC: MessageDigesWrapper.BLAKE2B-160 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b160
+ BC: MessageDigestWrapper.BLAKE2B-160 -> org.bouncycastle.jcajce.provider.digest.Blake2b$Blake2b160
   aliases: [1.3.6.1.4.1.1722.12.2.1.5]
 
 Algorithm:BLAKE2S-256
- BC: MessageDigesWrapper.BLAKE2S-256 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s256
+ BC: MessageDigestWrapper.BLAKE2S-256 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s256
   aliases: [1.3.6.1.4.1.1722.12.2.2.8]
 
 Algorithm:BLAKE2S-224
- BC: MessageDigesWrapper.BLAKE2S-224 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s224
+ BC: MessageDigestWrapper.BLAKE2S-224 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s224
   aliases: [1.3.6.1.4.1.1722.12.2.2.7]
 
 Algorithm:BLAKE2S-160
- BC: MessageDigesWrapper.BLAKE2S-160 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s160
+ BC: MessageDigestWrapper.BLAKE2S-160 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s160
   aliases: [1.3.6.1.4.1.1722.12.2.2.5]
 
 Algorithm:BLAKE2S-128
- BC: MessageDigesWrapper.BLAKE2S-128 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s128
+ BC: MessageDigestWrapper.BLAKE2S-128 -> org.bouncycastle.jcajce.provider.digest.Blake2s$Blake2s128
   aliases: [1.3.6.1.4.1.1722.12.2.2.4]
 
 Algorithm:DSTU7564-256
- BC: MessageDigesWrapper.DSTU7564-256 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest256
+ BC: MessageDigestWrapper.DSTU7564-256 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest256
 
 Algorithm:DSTU7564-384
- BC: MessageDigesWrapper.DSTU7564-384 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest384
+ BC: MessageDigestWrapper.DSTU7564-384 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest384
 
 Algorithm:DSTU7564-512
- BC: MessageDigesWrapper.DSTU7564-512 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest512
+ BC: MessageDigestWrapper.DSTU7564-512 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest512
 
 Algorithm:1.2.804.2.1.1.1.1.2.2.1
- BC: MessageDigesWrapper.1.2.804.2.1.1.1.1.2.2.1 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest256
+ BC: MessageDigestWrapper.1.2.804.2.1.1.1.1.2.2.1 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest256
 
 Algorithm:OID.1.2.804.2.1.1.1.1.2.2.1
- BC: MessageDigesWrapper.OID.1.2.804.2.1.1.1.1.2.2.1 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest256
+ BC: MessageDigestWrapper.OID.1.2.804.2.1.1.1.1.2.2.1 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest256
 
 Algorithm:1.2.804.2.1.1.1.1.2.2.2
- BC: MessageDigesWrapper.1.2.804.2.1.1.1.1.2.2.2 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest384
+ BC: MessageDigestWrapper.1.2.804.2.1.1.1.1.2.2.2 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest384
 
 Algorithm:OID.1.2.804.2.1.1.1.1.2.2.2
- BC: MessageDigesWrapper.OID.1.2.804.2.1.1.1.1.2.2.2 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest384
+ BC: MessageDigestWrapper.OID.1.2.804.2.1.1.1.1.2.2.2 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest384
 
 Algorithm:1.2.804.2.1.1.1.1.2.2.3
- BC: MessageDigesWrapper.1.2.804.2.1.1.1.1.2.2.3 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest512
+ BC: MessageDigestWrapper.1.2.804.2.1.1.1.1.2.2.3 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest512
 
 Algorithm:OID.1.2.804.2.1.1.1.1.2.2.3
- BC: MessageDigesWrapper.OID.1.2.804.2.1.1.1.1.2.2.3 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest512
+ BC: MessageDigestWrapper.OID.1.2.804.2.1.1.1.1.2.2.3 -> org.bouncycastle.jcajce.provider.digest.DSTU7564$Digest512
 
 {{KeyAgreement}}
 Algorithm:DH

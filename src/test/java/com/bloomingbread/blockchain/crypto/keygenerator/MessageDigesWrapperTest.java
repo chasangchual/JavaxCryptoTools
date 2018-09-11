@@ -4,6 +4,7 @@ import com.bloomingbread.blockchain.crypto.CryptoByteUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class MessageDigesWrapperTest {
     @Test
@@ -12,11 +13,11 @@ public class MessageDigesWrapperTest {
         MessageDigesWrapper digestUtils = new MessageDigesWrapper();
         String message1 = CryptoByteUtils.randomString(56);
         byte[] digest1 = digestUtils.digest(message1.getBytes("UTF-8"));
-        System.out.println(String.format("messge: %s\ndigest: %s", message1, CryptoByteUtils.bytesToHexString(digest1)));
 
         String message2 = CryptoByteUtils.randomString(1) + message1.substring(1) ;
         byte[] digest2 = digestUtils.digest(message2.getBytes("UTF-8"));
-        System.out.println(String.format("messge: %s\ndigest: %s", message2, CryptoByteUtils.bytesToHexString(digest2)));
+
+        assertEquals(digest1, digest2);
     }
 
     @Test
@@ -26,39 +27,25 @@ public class MessageDigesWrapperTest {
         MessageDigesWrapper digestUtils = new MessageDigesWrapper();
         String message1 = CryptoByteUtils.randomString(56);
         byte[] digest1 = digestUtils.digest(message1.getBytes("UTF-8"), digestAlgorithm);
-        System.out.println(String.format("messge: %s\ndigest: %s", message1, CryptoByteUtils.bytesToHexString(digest1)));
 
         String message2 = CryptoByteUtils.randomString(1) + message1.substring(1) ;
         byte[] digest2 = digestUtils.digest(message2.getBytes("UTF-8"), digestAlgorithm);
-        System.out.println(String.format("messge: %s\ndigest: %s", message2, CryptoByteUtils.bytesToHexString(digest2)));
-    }
 
-    @Test
-    public void digestWithSha1() throws Exception {
-        String digestAlgorithm = "SHA-1";
-        System.out.println(digestAlgorithm);
-        MessageDigesWrapper digestUtils = new MessageDigesWrapper();
-        String message1 = CryptoByteUtils.randomString(56);
-        byte[] digest1 = digestUtils.digest(message1.getBytes("UTF-8"), digestAlgorithm);
-        System.out.println(String.format("messge: %s\ndigest: %s", message1, CryptoByteUtils.bytesToHexString(digest1)));
-
-        String message2 = CryptoByteUtils.randomString(1) + message1.substring(1) ;
-        byte[] digest2 = digestUtils.digest(message2.getBytes("UTF-8"), digestAlgorithm);
-        System.out.println(String.format("messge: %s\ndigest: %s", message2, CryptoByteUtils.bytesToHexString(digest2)));
+        assertEquals(digest1, digest2);
     }
 
     @Test
     public void digestWithSha256() throws Exception {
-        String digestAlgorithm = "SHA-256";
-        System.out.println(digestAlgorithm);
+        String digestAlgorithm1 = "SHA-1";
+        String digestAlgorithm2 = "SHA-256";
         MessageDigesWrapper digestUtils = new MessageDigesWrapper();
         String message1 = CryptoByteUtils.randomString(56);
-        byte[] digest1 = digestUtils.digest(message1.getBytes("UTF-8"), digestAlgorithm);
-        System.out.println(String.format("messge: %s\ndigest: %s", message1, CryptoByteUtils.bytesToHexString(digest1)));
+        byte[] digest1 = digestUtils.digest(message1.getBytes("UTF-8"), digestAlgorithm1);
 
         String message2 = CryptoByteUtils.randomString(1) + message1.substring(1) ;
-        byte[] digest2 = digestUtils.digest(message2.getBytes("UTF-8"), digestAlgorithm);
-        System.out.println(String.format("messge: %s\ndigest: %s", message2, CryptoByteUtils.bytesToHexString(digest2)));
+        byte[] digest2 = digestUtils.digest(message2.getBytes("UTF-8"), digestAlgorithm2);
+
+        assertNotEquals(message1, message2);
     }
     @Test
     public void findMessageDigestAlgorithm() throws Exception {

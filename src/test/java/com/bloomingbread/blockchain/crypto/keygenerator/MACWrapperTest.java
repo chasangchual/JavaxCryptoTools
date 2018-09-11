@@ -8,10 +8,10 @@ import javax.crypto.SecretKey;
 /**
 
  */
-public class MessageAuthenticationCodeTest {
+public class MACWrapperTest {
     @Test
     public void authenticate() throws Exception {
-        MessageAuthenticationCode authenticationCode = new MessageAuthenticationCode();
+        MACWrapper authenticationCode = new MACWrapper();
         byte[] messsage1 = CryptoByteUtils.randomString(56).getBytes("UTF-8");
         SecretKey key = authenticationCode.createKey();
 

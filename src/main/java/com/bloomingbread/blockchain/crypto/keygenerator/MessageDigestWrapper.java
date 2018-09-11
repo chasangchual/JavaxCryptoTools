@@ -22,7 +22,7 @@ import java.util.List;
  * BLAKE2S-128, DSTU7564-256, DSTU7564-384, DSTU7564-512
  *
  * by Sangchual Cha (sangchual.cha@gmail.com)
- * 
+ *
  */
 public class MessageDigestWrapper extends CryptoBase {
     public static final String SERVICE = "MessageDigest";

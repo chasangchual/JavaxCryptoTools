@@ -6,10 +6,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import java.security.InvalidKeyException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Security;
-import java.util.Arrays;
 
 /**
  *
@@ -40,15 +37,15 @@ import java.util.Arrays;
  * Threefish-256CMAC, Threefish-512CMAC, Threefish-1024CMAC, VMPCMAC, DSTU7624GMAC, DSTU7624-128GMAC, DSTU7624-256GMAC,
  * DSTU7624-512GMAC, GOST3412MAC
  */
-public class MessageAuthenticationCode extends CryptoBase {
+public class MACWrapper extends CryptoBase {
     private static final String MAC_SEVICE = "Mac";
     public static final String DEFAULT_MAC_ALGORITHM = "HMACSHA512";
 
-    public MessageAuthenticationCode() {
+    public MACWrapper() {
         this(BouncyCastleProvider.PROVIDER_NAME);
     }
 
-    public MessageAuthenticationCode(final String providerName) {
+    public MACWrapper(final String providerName) {
         super(providerName, MAC_SEVICE, DEFAULT_MAC_ALGORITHM);
     }
 

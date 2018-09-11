@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Message digest utils.
+ *
+ * Message digest API wrapper class.
  *
  * Available Message Digest Algorithm in BC
  *
@@ -19,21 +20,31 @@ import java.util.List;
  * Skein-512-256, Skein-512-384, Skein-512-512, Skein-1024-384, Skein-1024-512, Skein-1024-1024, SM3, TIGER,
  * WHIRLPOOL, BLAKE2B-512, BLAKE2B-384, BLAKE2B-256, BLAKE2B-160, BLAKE2S-256, BLAKE2S-224, BLAKE2S-160,
  * BLAKE2S-128, DSTU7564-256, DSTU7564-384, DSTU7564-512
+ *
+ * by Sangchual Cha (sangchual.cha@gmail.com)
+ * 
  */
-public class MessageDigesWrapper extends CryptoBase {
-    public static final String SEVICE = "MessageDigest";
+public class MessageDigestWrapper extends CryptoBase {
+    public static final String SERVICE = "MessageDigest";
     public static final String DEFAULT_ALGORITHM = "SHA-512";
 
-    public MessageDigesWrapper() {
+    public MessageDigestWrapper() {
         this(BouncyCastleProvider.PROVIDER_NAME);
     }
 
-    public MessageDigesWrapper(final String providerName) {
-        super(providerName, SEVICE, DEFAULT_ALGORITHM);
+    public MessageDigestWrapper(final String providerName) {
+        super(providerName, SERVICE, DEFAULT_ALGORITHM);
     }
 
+    /**
+     * create message digest with recently used algorithm
+     *
+     * @param message target message in byte[]
+     * @return message digest
+     * @throws NoSuchAlgorithmException recentAlgorithm is not supported by the provider
+     */
     public byte[] digest(final byte[] message) throws NoSuchAlgorithmException {
-        return digest(message, DEFAULT_ALGORITHM);
+        return digest(message, recentAlgorithm);
     }
 
     public byte[] digest(final byte[] message, final String algorithm) throws NoSuchAlgorithmException {
@@ -50,8 +61,8 @@ public class MessageDigesWrapper extends CryptoBase {
         List<String> providers = JCEProviderInfo.instance().getAvailableProviders();
 
         for(int i = 0 ; !found && i < providers.size(); i++) {
-            if(JCEProviderInfo.instance().isAvailableService(providers.get(i), SEVICE)) {
-                List<String> algorithms = JCEProviderInfo.instance().getAvailableAlgorithm(providers.get(i), SEVICE);
+            if(JCEProviderInfo.instance().isAvailableService(providers.get(i), SERVICE)) {
+                List<String> algorithms = JCEProviderInfo.instance().getAvailableAlgorithm(providers.get(i), SERVICE);
                 for(int k = 0; !found && k < algorithms.size(); k++) {
                     if(Arrays.equals(messageDigest, digest(message, algorithms.get(k)))) {
                         found = true;

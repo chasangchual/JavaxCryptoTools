@@ -38,19 +38,19 @@ import java.security.NoSuchAlgorithmException;
  * DSTU7624-512GMAC, GOST3412MAC
  */
 public class MACWrapper extends CryptoBase {
-    private static final String MAC_SEVICE = "Mac";
-    public static final String DEFAULT_MAC_ALGORITHM = "HMACSHA512";
+    public static final String SERVICE = "Mac";
+    public static final String DEFAULT_ALGORITHM = "HMACSHA512";
 
     public MACWrapper() {
         this(BouncyCastleProvider.PROVIDER_NAME);
     }
 
     public MACWrapper(final String providerName) {
-        super(providerName, MAC_SEVICE, DEFAULT_MAC_ALGORITHM);
+        super(providerName, SERVICE, DEFAULT_ALGORITHM);
     }
 
     public SecretKey createKey() throws NoSuchAlgorithmException {
-        return createKey(DEFAULT_MAC_ALGORITHM);
+        return createKey(recentAlgorithm);
     }
 
     public SecretKey createKey(final String algorithm) throws NoSuchAlgorithmException {

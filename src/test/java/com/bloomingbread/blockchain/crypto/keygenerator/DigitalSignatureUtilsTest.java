@@ -50,7 +50,7 @@ public class DigitalSignatureUtilsTest {
 //                        AsymmetricKeyGenerator.KEY_GENERATOR_SEVICE);
 //
 //                List<String> cipherAlgorithms = providerInfo.getAvailableAlgorithm(signatureUtils.getProviderName(),
-//                        MessageCipher.SEVICE);
+//                        MessageCipher.SERVICE);
 //
 //                byte[] message = CryptoByteUtils.randomString(60).getBytes("UTF-8");
 //                SecretKey key = null;

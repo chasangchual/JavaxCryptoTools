@@ -10,8 +10,8 @@ import java.security.NoSuchProviderException;
 import java.util.Arrays;
 
 public class MessageSignatureUtils extends CryptoBase {
-    public static final String SEVICE = MessageDigesWrapper.SEVICE;
-    public static final String DEFAULT_ALGORITHM = MessageDigesWrapper.DEFAULT_ALGORITHM;
+    public static final String SEVICE = MessageDigestWrapper.SERVICE;
+    public static final String DEFAULT_ALGORITHM = MessageDigestWrapper.DEFAULT_ALGORITHM;
 
     public MessageSignatureUtils() {
         this(org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME);
@@ -25,7 +25,7 @@ public class MessageSignatureUtils extends CryptoBase {
                                            final String cipherAlgorithm)
             throws NoSuchAlgorithmException, NoSuchProviderException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
 
-        MessageDigesWrapper digestUtils = new MessageDigesWrapper();
+        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
         byte[] digest = digestUtils.digest(message, digestAlgorithm);
 
         MessageCipher cipher = new MessageCipher();
@@ -38,7 +38,7 @@ public class MessageSignatureUtils extends CryptoBase {
                                          final String digestAlgorithm, final String cipherAlgorithm)
             throws NoSuchAlgorithmException, NoSuchProviderException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
 
-        MessageDigesWrapper digestUtils = new MessageDigesWrapper();
+        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
         byte[] digest = digestUtils.digest(message, digestAlgorithm);
 
         MessageCipher cipher = new MessageCipher();

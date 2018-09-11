@@ -7,11 +7,11 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class MessageDigesWrapperTest {
+public class MessageDigestWrapperTest {
     @Test
     public void digestWithDefalut() throws Exception {
-        System.out.println(MessageDigesWrapper.DEFAULT_ALGORITHM);
-        MessageDigesWrapper digestUtils = new MessageDigesWrapper();
+        System.out.println(MessageDigestWrapper.DEFAULT_ALGORITHM);
+        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
         String message = CryptoByteUtils.randomString(56);
         byte[] digest1 = digestUtils.digest(message.getBytes("UTF-8"));
         byte[] digest2 = digestUtils.digest(message.getBytes("UTF-8"));
@@ -23,7 +23,7 @@ public class MessageDigesWrapperTest {
     public void digestWithMD5() throws Exception {
         String digestAlgorithm = "MD5";
         System.out.println(digestAlgorithm);
-        MessageDigesWrapper digestUtils = new MessageDigesWrapper();
+        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
         String message = CryptoByteUtils.randomString(56);
         byte[] digest1 = digestUtils.digest(message.getBytes("UTF-8"), digestAlgorithm);
         byte[] digest2 = digestUtils.digest(message.getBytes("UTF-8"), digestAlgorithm);
@@ -35,7 +35,7 @@ public class MessageDigesWrapperTest {
     public void digestWithSha256() throws Exception {
         String digestAlgorithm1 = "SHA-1";
         String digestAlgorithm2 = "SHA-256";
-        MessageDigesWrapper digestUtils = new MessageDigesWrapper();
+        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
         String message1 = CryptoByteUtils.randomString(56);
         byte[] digest1 = digestUtils.digest(message1.getBytes("UTF-8"), digestAlgorithm1);
 
@@ -48,9 +48,15 @@ public class MessageDigesWrapperTest {
     @Test
     public void findMessageDigestAlgorithm() throws Exception {
         String digestAlgorithm = "SHA-256";
-        MessageDigesWrapper digestUtils = new MessageDigesWrapper();
+        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
         String message1 = CryptoByteUtils.randomString(56);
         byte[] digest1 = digestUtils.digest(message1.getBytes("UTF-8"), digestAlgorithm);
         assertEquals(digestAlgorithm, digestUtils.findMessageDigestAlgorithm(message1.getBytes("UTF-8"), digest1));
+    }
+
+    @Test
+    public void toStringTest() throws Exception {
+        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
+        System.out.println(digestUtils.toString());
     }
 }

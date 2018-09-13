@@ -123,7 +123,7 @@ SUN version 1.8
 {{Configuration}}
 {{SecureRandom}}
 {{AlgorithmParameterGenerator}}
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 {{CertificateFactory}}
 {{KeyStore}}
 {{CertPathValidator}}
@@ -161,9 +161,9 @@ Algorithm:DSA
  SUN: AlgorithmParameterGenerator.DSA -> sun.security.provider.DSAParameterGenerator
   attributes: {ImplementedIn=Software, KeySize=2048}
 
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 Algorithm:DSA
- SUN: AsymmetricKeyGenerator.DSA -> sun.security.provider.DSAKeyPairGenerator$Current
+ SUN: KeyPairGeneratorWrapper.DSA -> sun.security.provider.DSAKeyPairGenerator$Current
   aliases: [OID.1.2.840.10040.4.1, 1.2.840.10040.4.1, 1.3.14.3.2.12]
   attributes: {ImplementedIn=Software, KeySize=2048}
 
@@ -276,7 +276,7 @@ Sun RSA signature provider
 SunRsaSign version 1.8
 -----------------------------------------------------
 {{Signature}}
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 {{KeyFactory}}
 
 {{Signature}}
@@ -315,9 +315,9 @@ Algorithm:SHA512withRSA
   aliases: [1.2.840.113549.1.1.13, OID.1.2.840.113549.1.1.13]
   attributes: {SupportedKeyClasses=java.security.interfaces.RSAPublicKey|java.security.interfaces.RSAPrivateKey}
 
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 Algorithm:RSA
- SunRsaSign: AsymmetricKeyGenerator.RSA -> sun.security.rsa.RSAKeyPairGenerator
+ SunRsaSign: KeyPairGeneratorWrapper.RSA -> sun.security.rsa.RSAKeyPairGenerator
   aliases: [1.2.840.113549.1.1, OID.1.2.840.113549.1.1]
 
 {{KeyFactory}}
@@ -332,7 +332,7 @@ Sun Elliptic Curve provider (EC, ECDSA, ECDH)
 SunEC version 1.8
 -----------------------------------------------------
 {{Signature}}
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 {{KeyAgreement}}
 {{KeyFactory}}
 {{AlgorithmParameters}}
@@ -367,9 +367,9 @@ Algorithm:SHA512withECDSA
   aliases: [OID.1.2.840.10045.4.3.4, 1.2.840.10045.4.3.4]
   attributes: {ImplementedIn=Software, SupportedKeyClasses=java.security.interfaces.ECPublicKey|java.security.interfaces.ECPrivateKey}
 
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 Algorithm:EC
- SunEC: AsymmetricKeyGenerator.EC -> sun.security.ec.ECKeyPairGenerator
+ SunEC: KeyPairGeneratorWrapper.EC -> sun.security.ec.ECKeyPairGenerator
   aliases: [EllipticCurve]
   attributes: {ImplementedIn=Software, KeySize=256}
 
@@ -398,7 +398,7 @@ SunJSSE version 1.8
 -----------------------------------------------------
 {{Signature}}
 {{TrustManagerFactory}}
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 {{SSLContext}}
 {{KeyStore}}
 {{KeyFactory}}
@@ -428,9 +428,9 @@ Algorithm:PKIX
  SunJSSE: TrustManagerFactory.PKIX -> sun.security.ssl.TrustManagerFactoryImpl$PKIXFactory
   aliases: [SunPKIX, X509, X.509]
 
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 Algorithm:RSA
- SunJSSE: AsymmetricKeyGenerator.RSA -> sun.security.rsa.RSAKeyPairGenerator
+ SunJSSE: KeyPairGeneratorWrapper.RSA -> sun.security.rsa.RSAKeyPairGenerator
   aliases: [1.2.840.113549.1.1, OID.1.2.840.113549.1.1]
 
 {{SSLContext}}
@@ -476,7 +476,7 @@ SunJCE version 1.8
 -----------------------------------------------------
 {{AlgorithmParameterGenerator}}
 {{Cipher}}
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 {{KeyAgreement}}
 {{KeyGenerator}}
 {{SecretKeyFactory}}
@@ -659,9 +659,9 @@ Algorithm:ARCFOUR
   aliases: [RC4]
   attributes: {SupportedPaddings=NOPADDING, SupportedKeyFormats=RAW, SupportedModes=ECB}
 
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 Algorithm:DiffieHellman
- SunJCE: AsymmetricKeyGenerator.DiffieHellman -> com.sun.crypto.provider.DHKeyPairGenerator
+ SunJCE: KeyPairGeneratorWrapper.DiffieHellman -> com.sun.crypto.provider.DHKeyPairGenerator
   aliases: [DH, OID.1.2.840.113549.1.3.1, 1.2.840.113549.1.3.1]
 
 {{KeyAgreement}}
@@ -1138,7 +1138,7 @@ BC version 1.6
 {{X509Store}}
 {{AlgorithmParameterGenerator}}
 {{SecureRandom}}
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 {{CertificateFactory}}
 {{KeyStore}}
 {{Mac}}
@@ -1295,60 +1295,60 @@ Algorithm:DEFAULT
 Algorithm:NONCEANDIV
  BC: SecureRandom.NONCEANDIV -> org.bouncycastle.jcajce.provider.drbg.DRBG$NonceAndIV
 
-{{AsymmetricKeyGenerator}}
+{{KeyPairGeneratorWrapper}}
 Algorithm:DSA
- BC: AsymmetricKeyGenerator.DSA -> org.bouncycastle.jcajce.provider.asymmetric.dsa.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.DSA -> org.bouncycastle.jcajce.provider.asymmetric.dsa.KeyPairGeneratorSpi
   aliases: [1.2.840.10040.4.1, 1.3.14.3.2.27, 1.2.840.10040.4.3]
 
 Algorithm:DH
- BC: AsymmetricKeyGenerator.DH -> org.bouncycastle.jcajce.provider.asymmetric.dh.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.DH -> org.bouncycastle.jcajce.provider.asymmetric.dh.KeyPairGeneratorSpi
   aliases: [DIFFIEHELLMAN, 1.2.840.113549.1.3.1, 1.2.840.10046.2.1]
 
 Algorithm:EC
- BC: AsymmetricKeyGenerator.EC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$EC
+ BC: KeyPairGeneratorWrapper.EC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$EC
   aliases: [1.2.840.10045.2.1, 1.3.133.16.840.63.0.3, 1.3.132.1.11.0, 1.3.132.1.14.0, 1.3.132.1.11.1, 1.3.132.1.14.1, 1.3.132.1.11.2, 1.3.132.1.14.2, 1.3.132.1.11.3, 1.3.132.1.14.3, 1.3.133.16.840.63.0.2]
 
 Algorithm:ECMQV
- BC: AsymmetricKeyGenerator.ECMQV -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECMQV
+ BC: KeyPairGeneratorWrapper.ECMQV -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECMQV
   aliases: [1.3.133.16.840.63.0.16, 1.3.132.1.15.0, 1.3.132.1.15.1, 1.3.132.1.15.2, 1.3.132.1.15.3]
 
 Algorithm:ECDSA
- BC: AsymmetricKeyGenerator.ECDSA -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDSA
+ BC: KeyPairGeneratorWrapper.ECDSA -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDSA
 
 Algorithm:ECDH
- BC: AsymmetricKeyGenerator.ECDH -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
+ BC: KeyPairGeneratorWrapper.ECDH -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
 
 Algorithm:ECDHWITHSHA1KDF
- BC: AsymmetricKeyGenerator.ECDHWITHSHA1KDF -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
+ BC: KeyPairGeneratorWrapper.ECDHWITHSHA1KDF -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
 
 Algorithm:ECDHC
- BC: AsymmetricKeyGenerator.ECDHC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDHC
+ BC: KeyPairGeneratorWrapper.ECDHC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDHC
 
 Algorithm:ECIES
- BC: AsymmetricKeyGenerator.ECIES -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
+ BC: KeyPairGeneratorWrapper.ECIES -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
 
 Algorithm:RSA
- BC: AsymmetricKeyGenerator.RSA -> org.bouncycastle.jcajce.provider.asymmetric.rsa.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.RSA -> org.bouncycastle.jcajce.provider.asymmetric.rsa.KeyPairGeneratorSpi
   aliases: [1.2.840.113549.1.1.1, 2.5.8.1.1, 1.2.840.113549.1.1.7, 1.2.840.113549.1.1.10]
 
 Algorithm:GOST3410
- BC: AsymmetricKeyGenerator.GOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.gost.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.GOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.gost.KeyPairGeneratorSpi
   aliases: [GOST-3410, GOST-3410-94, 1.2.643.2.2.20]
 
 Algorithm:ECGOST3410
- BC: AsymmetricKeyGenerator.ECGOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.ECGOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost.KeyPairGeneratorSpi
   aliases: [1.2.643.2.2.19, 1.2.643.2.2.98, ECGOST-3410, GOST-3410-2001]
 
 Algorithm:ECGOST3410-2012
- BC: AsymmetricKeyGenerator.ECGOST3410-2012 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost12.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.ECGOST3410-2012 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost12.KeyPairGeneratorSpi
   aliases: [1.2.643.7.1.1.1.1, 1.2.643.7.1.1.6.1, 1.2.643.7.1.1.1.2, 1.2.643.7.1.1.6.2, ECGOST3410-2012, GOST-3410-2012]
 
 Algorithm:ELGAMAL
- BC: AsymmetricKeyGenerator.ELGAMAL -> org.bouncycastle.jcajce.provider.asymmetric.elgamal.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.ELGAMAL -> org.bouncycastle.jcajce.provider.asymmetric.elgamal.KeyPairGeneratorSpi
   aliases: [1.3.14.7.2.1.1]
 
 Algorithm:DSTU4145
- BC: AsymmetricKeyGenerator.DSTU4145 -> org.bouncycastle.jcajce.provider.asymmetric.dstu.KeyPairGeneratorSpi
+ BC: KeyPairGeneratorWrapper.DSTU4145 -> org.bouncycastle.jcajce.provider.asymmetric.dstu.KeyPairGeneratorSpi
   aliases: [1.2.804.2.1.1.1.1.3.1.1, 1.2.804.2.1.1.1.1.3.1.1.1.1, DSTU-4145, DSTU-4145-2002]
 
 {{CertificateFactory}}

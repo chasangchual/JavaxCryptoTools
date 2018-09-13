@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class AsymmetricKeyGeneratorTest {
+public class KeyPairGeneratorWrapperTest {
     @Test
     public void newKeyPair() throws Exception {
     }

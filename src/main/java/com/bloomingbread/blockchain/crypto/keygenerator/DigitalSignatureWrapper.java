@@ -1,22 +1,14 @@
 package com.bloomingbread.blockchain.crypto.keygenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import sun.plugin2.message.Message;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
-import java.util.Arrays;
 
 /**
  * DSA, NONEWITHDSA, DETDSA, SHA1WITHDETDSA, SHA224WITHDETDSA, SHA256WITHDETDSA, SHA384WITHDETDSA, SHA512WITHDETDSA,
@@ -43,16 +35,16 @@ import java.util.Arrays;
  * GOST3411-2012-256WITHECGOST3410-2012-256, ECGOST3410-2012-512, GOST3411-2012-512WITHECGOST3410-2012-512, DSTU4145,
  * GOST3411WITHDSTU4145LE, GOST3411WITHDSTU4145, SM3WITHSM2
  */
-public class DigitalSignatureUtils  extends CryptoBase {
-    public static final String SIGNATURE_SEVICE = "Signature";
-    public static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA256WITHECDDSA";
+public class DigitalSignatureWrapper extends CryptoBase {
+    public static final String SERVICE = "Signature";
+    public static final String DEFAULT_ALGORITHM = "SHA256WITHECDDSA";
 
-    public DigitalSignatureUtils() {
-        this(BouncyCastleProvider.PROVIDER_NAME);
+    public DigitalSignatureWrapper() {
+        this(BouncyCastleProvider.PROVIDER_NAME, DEFAULT_ALGORITHM);
     }
 
-    public DigitalSignatureUtils(final String providerName) {
-        super(providerName, SIGNATURE_SEVICE, DEFAULT_SIGNATURE_ALGORITHM);
+    public DigitalSignatureWrapper(final String providerName, final String initialAlgorithm) {
+        super(providerName, SERVICE, initialAlgorithm);
     }
 
     public byte[] generateSignature(final byte[] message, final PrivateKey key) throws NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {

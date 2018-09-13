@@ -29,11 +29,11 @@ public class MessageDigestWrapper extends CryptoBase {
     public static final String DEFAULT_ALGORITHM = "SHA-512";
 
     public MessageDigestWrapper() {
-        this(BouncyCastleProvider.PROVIDER_NAME);
+        this(BouncyCastleProvider.PROVIDER_NAME, DEFAULT_ALGORITHM);
     }
 
-    public MessageDigestWrapper(final String providerName) {
-        super(providerName, SERVICE, DEFAULT_ALGORITHM);
+    public MessageDigestWrapper(final String providerName, final String initialAlgorithm) {
+        super(providerName, SERVICE, initialAlgorithm);
     }
 
     /**

@@ -2,12 +2,8 @@ package com.bloomingbread.blockchain.crypto.keygenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.*;
 import java.security.InvalidKeyException;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.PrivateKey;
@@ -33,24 +29,24 @@ import java.security.PrivateKey;
  * BROKENPBEWITHMD5ANDDES, BROKENPBEWITHSHA1ANDDES, OLDPBEWITHSHAANDTWOFISH-CBC]
  */
 
-public class MessageCipher extends CryptoBase {
-    public static final String SEVICE = "Cipher";
+public class MessageCipherWrapper extends CryptoBase {
+    public static final String SERVICE = "Cipher";
     public static final String DEFAULT_ALGORITHM = "AES";
 
-    public MessageCipher() {
-        this(BouncyCastleProvider.PROVIDER_NAME);
+    public MessageCipherWrapper() {
+        this(BouncyCastleProvider.PROVIDER_NAME, DEFAULT_ALGORITHM);
     }
 
-    public MessageCipher(final String providerName) {
-        super(providerName, SEVICE, DEFAULT_ALGORITHM);
+    public MessageCipherWrapper(final String providerName, final String initialAlgorithm) {
+        super(providerName, SERVICE, initialAlgorithm);
     }
 
-    public byte[] encrypt(final byte[] message, final Key key) throws NoSuchPaddingException, NoSuchAlgorithmException,
+    public byte[] encrypt(final byte[] message, final SecretKey key) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         return encrypt(message, key, DEFAULT_ALGORITHM);
     }
 
-    public byte[] encrypt(final byte[] message, final Key key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,
+    public byte[] encrypt(final byte[] message, final SecretKey key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         updateRecentlyUsedAlgorithm(algorithm);
         Cipher cipher = Cipher.getInstance(algorithm);
@@ -60,7 +56,7 @@ public class MessageCipher extends CryptoBase {
 
     public byte[] encrypt(final byte[] message, final PublicKey key) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        return encrypt(message, key, DEFAULT_ALGORITHM);
+        return encrypt(message, key, recentAlgorithm);
     }
 
     public byte[] encrypt(final byte[] message, final PublicKey key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,
@@ -73,7 +69,7 @@ public class MessageCipher extends CryptoBase {
 
     public byte[] encrypt(final byte[] message, final PrivateKey key) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        return encrypt(message, key, DEFAULT_ALGORITHM);
+        return encrypt(message, key, recentAlgorithm);
     }
 
     public byte[] encrypt(final byte[] message, final PrivateKey key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,
@@ -84,12 +80,12 @@ public class MessageCipher extends CryptoBase {
         return cipher.doFinal(message);
     }
 
-    public byte[] decrypt(final byte[] message, final Key key) throws NoSuchPaddingException, NoSuchAlgorithmException,
+    public byte[] decrypt(final byte[] message, final SecretKey key) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        return decrypt(message, key, DEFAULT_ALGORITHM);
+        return decrypt(message, key, recentAlgorithm);
     }
 
-    public byte[] decrypt(final byte[] message, final Key key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,
+    public byte[] decrypt(final byte[] message, final SecretKey key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         updateRecentlyUsedAlgorithm(algorithm);
         Cipher cipher = Cipher.getInstance(algorithm);
@@ -99,7 +95,7 @@ public class MessageCipher extends CryptoBase {
 
     public byte[] decrypt(final byte[] message, final PublicKey key) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        return decrypt(message, key, DEFAULT_ALGORITHM);
+        return decrypt(message, key, recentAlgorithm);
     }
 
     public byte[] decrypt(final byte[] message, final PublicKey key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,
@@ -112,7 +108,7 @@ public class MessageCipher extends CryptoBase {
 
     public byte[] decrypt(final byte[] message, final PrivateKey key) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        return decrypt(message, key, DEFAULT_ALGORITHM);
+        return decrypt(message, key, recentAlgorithm);
     }
 
     public byte[] decrypt(final byte[] message, final PrivateKey key, final String algorithm) throws NoSuchPaddingException, NoSuchAlgorithmException,

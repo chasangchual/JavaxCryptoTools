@@ -32,8 +32,8 @@ public abstract class CryptoBase {
         if(jceProviderInfo.isAvailableAlgorithm(providerName, serviceName, defaultAlgorithm)) {
             this.recentAlgorithm = defaultAlgorithm;
         } else {
-            throw new RuntimeException(String.format("specified crypto service, %s is not available in %s.",
-                    serviceName, providerName));
+            throw new RuntimeException(String.format("specified algorithm, %s is not available in %s, in %s.",
+                    defaultAlgorithm, serviceName, providerName));
         }
     }
 

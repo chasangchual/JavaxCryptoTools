@@ -6,20 +6,25 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 
-public class SymmetricKeyGenerator extends CryptoBase {
-    public static final String SEVICE = "KeyGenerator";
+/**
+ * KeyGenerator wrapper class.
+ *
+ * by Sangchual Cha (sangchual.cha@gmail.com)
+ */
+public class KeyGeneratorWrapper extends CryptoBase {
+    public static final String SERVICE = "KeyGenerator";
     public static final String DEFAULT_ALGORITHM = "AES";
 
-    public SymmetricKeyGenerator() {
-        this(BouncyCastleProvider.PROVIDER_NAME);
+    public KeyGeneratorWrapper() {
+        this(BouncyCastleProvider.PROVIDER_NAME, DEFAULT_ALGORITHM);
     }
 
-    public SymmetricKeyGenerator(final String providerName) {
-        super(providerName, SEVICE, DEFAULT_ALGORITHM);
+    public KeyGeneratorWrapper(final String providerName, final String initialAlgorithm) {
+        super(providerName, SERVICE, initialAlgorithm);
     }
 
     public SecretKey newKey() throws NoSuchAlgorithmException {
-        return newKey(DEFAULT_ALGORITHM);
+        return newKey(recentAlgorithm);
     }
 
     public SecretKey newKey(final String algorithm) throws NoSuchAlgorithmException {

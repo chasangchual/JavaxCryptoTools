@@ -30,20 +30,20 @@ public class MessageSignatureUtilsTest {
             }
 
             if(providerInfo.isAvailableService(provider, MessageSignatureUtils.SEVICE) &&
-                    providerInfo.isAvailableService(provider, MessageCipher.SEVICE) &&
-                    providerInfo.isAvailableService(provider, SymmetricKeyGenerator.SEVICE)) {
+                    providerInfo.isAvailableService(provider, MessageCipherWrapper.SERVICE) &&
+                    providerInfo.isAvailableService(provider, KeyGeneratorWrapper.SERVICE)) {
 
-                MessageSignatureUtils signatureUtils = new MessageSignatureUtils(provider);
-                SymmetricKeyGenerator keyGenerator = new SymmetricKeyGenerator(provider);
+                List<String> keyGeneratorAlgorithms = providerInfo.getAvailableAlgorithm(provider,
+                        KeyGeneratorWrapper.SERVICE);
 
-                List<String> keyGeneratorAlgorithms = providerInfo.getAvailableAlgorithm(signatureUtils.getProviderName(),
-                        SymmetricKeyGenerator.SEVICE);
+                List<String> cipherAlgorithms = providerInfo.getAvailableAlgorithm(provider,
+                        MessageCipherWrapper.SERVICE);
 
-                List<String> cipherAlgorithms = providerInfo.getAvailableAlgorithm(signatureUtils.getProviderName(),
-                        MessageCipher.SEVICE);
-
-                List<String> signatureAlgorithms = providerInfo.getAvailableAlgorithm(signatureUtils.getProviderName(),
+                List<String> signatureAlgorithms = providerInfo.getAvailableAlgorithm(provider,
                         MessageSignatureUtils.SEVICE);
+
+                MessageSignatureUtils signatureUtils = new MessageSignatureUtils(provider, signatureAlgorithms.get(0));
+                KeyGeneratorWrapper keyGenerator = new KeyGeneratorWrapper(provider, keyGeneratorAlgorithms.get(0));
 
                 byte[] message = CryptoByteUtils.randomString(60).getBytes("UTF-8");
                 SecretKey key = null;

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SymmetricKeyGeneratorTest {
+public class KeyGeneratorWrapperTest {
     @Test
     public void createKey() throws Exception {
     }

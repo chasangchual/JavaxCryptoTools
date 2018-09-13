@@ -9,8 +9,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * Message Authentication Code wrapper class
  *
- * 1) Create a symetric key and share it between peers
+ * 1) Create a symmetric key and share it between peers
  * 2) From the one side, create a mac with message and key
  * 3) Send message and mac
  * 4) From the other side, create another mac with message and key and compare mac from 3)
@@ -42,24 +43,20 @@ public class MACWrapper extends CryptoBase {
     public static final String DEFAULT_ALGORITHM = "HMACSHA512";
 
     public MACWrapper() {
-        this(BouncyCastleProvider.PROVIDER_NAME);
+        this(BouncyCastleProvider.PROVIDER_NAME, DEFAULT_ALGORITHM);
     }
 
-    public MACWrapper(final String providerName) {
-        super(providerName, SERVICE, DEFAULT_ALGORITHM);
-    }
-
-    public SecretKey createKey() throws NoSuchAlgorithmException {
-        return createKey(recentAlgorithm);
-    }
-
-    public SecretKey createKey(final String algorithm) throws NoSuchAlgorithmException {
-        updateRecentlyUsedAlgorithm(algorithm);
-        KeyGenerator keyGen = KeyGenerator.getInstance(algorithm);
-        return keyGen.generateKey();
+    public MACWrapper(final String providerName, final String initialAlgorithm) {
+        super(providerName, SERVICE, initialAlgorithm);
     }
 
     public byte[] getAuthenticationCode(final byte[] message, final SecretKey secretKey) throws NoSuchAlgorithmException, InvalidKeyException {
+        return getAuthenticationCode(message, recentAlgorithm, secretKey);
+    }
+
+    public byte[] getAuthenticationCode(final byte[] message, final String algorithm, final SecretKey secretKey) throws NoSuchAlgorithmException, InvalidKeyException {
+        updateRecentlyUsedAlgorithm(algorithm);
+
         Mac mac = Mac.getInstance(secretKey.getAlgorithm());
         mac.init(secretKey);
         mac.update(message);

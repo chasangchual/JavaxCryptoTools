@@ -228,7 +228,7 @@ GostR3410-2001-CryptoPro-XchA
 
 //    private static void usingKeyFactoryWithNamedCurve() throws NoSuchProviderException, NoSuchAlgorithmException, InvalidAlgorithmParameterException  {
 //        ECNamedCurveParameterSpec namedSpec = ECNamedCurveTable.getParameterSpec("prime239v1");
-//        AsymmetricKeyGenerator ecGen = AsymmetricKeyGenerator.getInstance("ECDSA", "BC");
+//        KeyPairGeneratorWrapper ecGen = KeyPairGeneratorWrapper.getInstance("ECDSA", "BC");
 //        ecGen.initialize(namedSpec);
 //        KeyPair pair = ecGen.generateKeyPair();
 //

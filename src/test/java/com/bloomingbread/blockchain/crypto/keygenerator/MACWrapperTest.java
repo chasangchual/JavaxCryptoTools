@@ -4,6 +4,8 @@ import com.bloomingbread.blockchain.crypto.CryptoByteUtils;
 import org.junit.Test;
 
 import javax.crypto.SecretKey;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -36,5 +38,19 @@ public class MACWrapperTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void toStringTest() {
+        JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
+        List<String> providers = jceProviderInfo.getAvailableProviders();
+        providers.forEach(provider -> {
+            if(jceProviderInfo.isAvailableService(provider, MACWrapper.SERVICE)) {
+                List<String> algorithms = jceProviderInfo.getAvailableAlgorithm(provider, MACWrapper.SERVICE);
+                Collections.sort(algorithms);
+                System.out.println(String.format("- %s", provider));
+                System.out.println(String.format("%s", Arrays.toString(algorithms.toArray())));
+            }
+        });
     }
 }

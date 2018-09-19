@@ -38,7 +38,8 @@ public class JCEProviderInfo {
     private void buildDictionary() {
         providers.clear();
         
-        Iterator<Provider> itrProvider = Providers.getProviderList().providers().iterator();
+        Iterator<Provider> itrProvider = Providers.getFullProviderList().providers().iterator();
+
         while(itrProvider.hasNext()) {
             Provider provider = itrProvider.next();
             providers.put(provider.getName(), provider);

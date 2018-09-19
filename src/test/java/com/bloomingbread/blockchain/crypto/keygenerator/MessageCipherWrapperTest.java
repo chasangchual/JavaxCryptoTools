@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import javax.crypto.SecretKey;
 import java.security.KeyPair;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -173,5 +171,19 @@ public class MessageCipherWrapperTest {
         });
 
         ResultPrintUtil.print(result);
+    }
+
+    @Test
+    public void toStringTest() {
+        JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
+        List<String> providers = jceProviderInfo.getAvailableProviders();
+        providers.forEach(provider -> {
+            if(jceProviderInfo.isAvailableService(provider, MessageCipherWrapper.SERVICE)) {
+                List<String> algorithms = jceProviderInfo.getAvailableAlgorithm(provider, MessageCipherWrapper.SERVICE);
+                Collections.sort(algorithms);
+                System.out.println(String.format("- %s", provider));
+                System.out.println(String.format("%s", Arrays.toString(algorithms.toArray())));
+            }
+        });
     }
 }

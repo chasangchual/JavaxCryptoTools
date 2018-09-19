@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.security.KeyPair;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.Assert.*;
@@ -57,5 +55,19 @@ public class DigitalSignatureWrapperTest {
         });
 
         ResultPrintUtil.print(result);
+    }
+
+    @Test
+    public void toStringTest() {
+        JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
+        List<String> providers = jceProviderInfo.getAvailableProviders();
+        providers.forEach(provider -> {
+            if(jceProviderInfo.isAvailableService(provider, DigitalSignatureWrapper.SERVICE)) {
+                List<String> algorithms = jceProviderInfo.getAvailableAlgorithm(provider, DigitalSignatureWrapper.SERVICE);
+                Collections.sort(algorithms);
+                System.out.println(String.format("- %s", provider));
+                System.out.println(String.format("%s", Arrays.toString(algorithms.toArray())));
+            }
+        });
     }
 }

@@ -30,6 +30,7 @@ public class KeyGeneratorWrapper extends CryptoBase {
     public SecretKey newKey(final String algorithm) throws NoSuchAlgorithmException {
         updateRecentlyUsedAlgorithm(algorithm);
         KeyGenerator keyGen = KeyGenerator.getInstance(algorithm);
+        keyGen.init(123);
         return keyGen.generateKey();
     }
 }

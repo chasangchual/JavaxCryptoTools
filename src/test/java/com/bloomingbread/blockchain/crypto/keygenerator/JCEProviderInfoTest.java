@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class JCEProviderInfoTest {
     @Test
     public void instance() throws Exception {
+
     }
 
     @Test

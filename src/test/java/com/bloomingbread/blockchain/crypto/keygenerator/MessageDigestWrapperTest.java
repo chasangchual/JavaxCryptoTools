@@ -4,6 +4,8 @@ import com.bloomingbread.blockchain.crypto.CryptoByteUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -55,8 +57,16 @@ public class MessageDigestWrapperTest {
     }
 
     @Test
-    public void toStringTest() throws Exception {
-        MessageDigestWrapper digestUtils = new MessageDigestWrapper();
-        System.out.println(digestUtils.toString());
+    public void toStringTest() {
+        JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
+        List<String> providers = jceProviderInfo.getAvailableProviders();
+        providers.forEach(provider -> {
+            if(jceProviderInfo.isAvailableService(provider, MessageDigestWrapper.SERVICE)) {
+                List<String> algorithms = jceProviderInfo.getAvailableAlgorithm(provider, MessageDigestWrapper.SERVICE);
+                Collections.sort(algorithms);
+                System.out.println(String.format("- %s", provider));
+                System.out.println(String.format("%s", Arrays.toString(algorithms.toArray())));
+            }
+        });
     }
 }

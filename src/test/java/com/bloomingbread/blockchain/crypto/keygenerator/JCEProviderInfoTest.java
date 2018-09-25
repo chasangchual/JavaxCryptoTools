@@ -1,5 +1,6 @@
 package com.bloomingbread.blockchain.crypto.keygenerator;
 
+import com.bloomingbread.crypto.JCEProviderInfo;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,7 +13,7 @@ import static org.junit.Assert.*;
 public class JCEProviderInfoTest {
     @Test
     public void instance() throws Exception {
-
+        JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
     }
 
     @Test

@@ -1,13 +1,11 @@
 package com.bloomingbread.blockchain.crypto.keygenerator;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import com.bloomingbread.crypto.JCEProviderInfo;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class KeyPairGeneratorWrapperTest {
     @Test

@@ -1,11 +1,11 @@
 package com.bloomingbread.blockchain.crypto.keygenerator;
 
+import com.bloomingbread.crypto.JCEProviderInfo;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**

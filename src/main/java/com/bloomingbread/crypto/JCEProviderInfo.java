@@ -1,7 +1,9 @@
-package com.bloomingbread.blockchain.crypto.keygenerator;
+package com.bloomingbread.crypto;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import sun.security.jca.Providers;
+
+import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Provider.Service;
 import java.security.Security;
@@ -51,7 +53,6 @@ public class JCEProviderInfo {
             Iterator<Service> itrService = entry.getValue().getServices().iterator();
             while(itrService.hasNext()) {
                 Service service = itrService.next();
-
                 if(!services.get(entry.getKey()).containsKey(service.getType())) {
                     services.get(entry.getKey()).put(service.getType(), new ArrayList<Service>());
                     algorithms.get(entry.getKey()).put(service.getType(), new HashSet<String>());

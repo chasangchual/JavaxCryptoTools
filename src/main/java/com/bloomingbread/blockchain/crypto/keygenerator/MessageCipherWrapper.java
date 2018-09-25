@@ -51,6 +51,7 @@ public class MessageCipherWrapper extends CryptoBase {
         updateRecentlyUsedAlgorithm(algorithm);
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.ENCRYPT_MODE, key);
+        
         return cipher.doFinal(message);
     }
 

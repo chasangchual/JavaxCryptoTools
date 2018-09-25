@@ -1,6 +1,7 @@
 package com.bloomingbread.blockchain.crypto.keygenerator;
 
 import com.bloomingbread.blockchain.crypto.CryptoByteUtils;
+import com.bloomingbread.crypto.JCEProviderInfo;
 import org.junit.Test;
 
 import java.util.Arrays;

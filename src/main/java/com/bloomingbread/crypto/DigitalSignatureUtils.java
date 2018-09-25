@@ -1,5 +1,6 @@
 package com.bloomingbread.blockchain.crypto.keygenerator;
 
+import com.bloomingbread.crypto.CryptoBase;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.InvalidKeyException;

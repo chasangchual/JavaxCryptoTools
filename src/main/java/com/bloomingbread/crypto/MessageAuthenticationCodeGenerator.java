@@ -1,8 +1,7 @@
-package com.bloomingbread.blockchain.crypto.keygenerator;
+package com.bloomingbread.crypto;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import java.security.InvalidKeyException;
@@ -38,29 +37,22 @@ import java.security.NoSuchAlgorithmException;
  * Threefish-256CMAC, Threefish-512CMAC, Threefish-1024CMAC, VMPCMAC, DSTU7624GMAC, DSTU7624-128GMAC, DSTU7624-256GMAC,
  * DSTU7624-512GMAC, GOST3412MAC
  */
-public class MACWrapper extends CryptoBase {
+public class MessageAuthenticationCodeGenerator extends CryptoBase {
     public static final String SERVICE = "Mac";
     public static final String DEFAULT_ALGORITHM = "HMACSHA512";
 
-    public MACWrapper() {
-        this(BouncyCastleProvider.PROVIDER_NAME, DEFAULT_ALGORITHM);
+    public MessageAuthenticationCodeGenerator(final String providerName) {
+        super(providerName, SERVICE);
     }
 
-    public MACWrapper(final String providerName, final String initialAlgorithm) {
-        super(providerName, SERVICE, initialAlgorithm);
+    public MessageAuthenticationCodeGenerator() {
+        super(BouncyCastleProvider.PROVIDER_NAME, SERVICE);
     }
 
-    public byte[] getAuthenticationCode(final byte[] message, final SecretKey secretKey) throws NoSuchAlgorithmException, InvalidKeyException {
-        return getAuthenticationCode(message, recentAlgorithm, secretKey);
-    }
-
-    public byte[] getAuthenticationCode(final byte[] message, final String algorithm, final SecretKey secretKey) throws NoSuchAlgorithmException, InvalidKeyException {
-        updateRecentlyUsedAlgorithm(algorithm);
-
+    public static byte[] getAuthenticationCode(final byte[] message, final String algorithm, final SecretKey secretKey) throws NoSuchAlgorithmException, InvalidKeyException {
         Mac mac = Mac.getInstance(secretKey.getAlgorithm());
         mac.init(secretKey);
         mac.update(message);
-
         return mac.doFinal();
     }
 }

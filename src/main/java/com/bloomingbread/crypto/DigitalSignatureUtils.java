@@ -1,6 +1,5 @@
-package com.bloomingbread.blockchain.crypto.keygenerator;
+package com.bloomingbread.crypto;
 
-import com.bloomingbread.crypto.CryptoBase;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.InvalidKeyException;
@@ -36,20 +35,15 @@ import java.security.SignatureException;
  * GOST3411-2012-256WITHECGOST3410-2012-256, ECGOST3410-2012-512, GOST3411-2012-512WITHECGOST3410-2012-512, DSTU4145,
  * GOST3411WITHDSTU4145LE, GOST3411WITHDSTU4145, SM3WITHSM2
  */
-public class DigitalSignatureWrapper extends CryptoBase {
+public class DigitalSignatureUtils extends CryptoBase {
     public static final String SERVICE = "Signature";
-    public static final String DEFAULT_ALGORITHM = "SHA256WITHECDDSA";
 
-    public DigitalSignatureWrapper() {
-        this(BouncyCastleProvider.PROVIDER_NAME, DEFAULT_ALGORITHM);
+    public DigitalSignatureUtils(final String providerName) {
+        super(providerName, SERVICE);
     }
 
-    public DigitalSignatureWrapper(final String providerName, final String initialAlgorithm) {
-        super(providerName, SERVICE, initialAlgorithm);
-    }
-
-    public byte[] generateSignature(final byte[] message, final PrivateKey key) throws NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
-        return generateSignature(message, recentAlgorithm, key);
+    public DigitalSignatureUtils() {
+        super(BouncyCastleProvider.PROVIDER_NAME, SERVICE);
     }
 
     public byte[] generateSignature(final byte[] message, final String algorithm, final PrivateKey key)
@@ -60,11 +54,6 @@ public class DigitalSignatureWrapper extends CryptoBase {
         byte[] signed = sig.sign();
 
         return signed;
-    }
-
-    public boolean veriySignature(final byte[] message, final byte[] signature, final PublicKey key)
-            throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException {
-        return veriySignature(message, signature, recentAlgorithm, key);
     }
 
     public boolean veriySignature(final byte[] message, final byte[] signature, final String algorithm, final PublicKey key)

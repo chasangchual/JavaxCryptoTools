@@ -15,58 +15,77 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * collect and provide available JCE service and algorithm for each providers.
+ */
 public class JCEProviderInfo {
     static {
+        // add Bouncy Castle as default
         Security.addProvider(new BouncyCastleProvider());
     }
 
     private Map<String, Provider> providers = new HashMap<>() ;
-    private Map<String, Map<String, List<Service>>> services = new HashMap<>() ;
-    private Map<String, Map<String, Set<String>>> algorithms = new HashMap<>() ;
+    private Map<String, Map<String, List<Service>>> services = new HashMap<>() ; // available service for each providers
+    private Map<String, Map<String, Set<String>>> algorithms = new HashMap<>() ; // available algorithm for each providers
 
-    private static JCEProviderInfo instance = null ;
+    private static JCEProviderInfo instance = null ; // singleton implementation
     
     private JCEProviderInfo() {
         buildDictionary();
     }
-    
+    // singleton implementation
     public static JCEProviderInfo instance() {
         if(instance == null) {
             instance = new JCEProviderInfo();
         }
         return instance;
     }
-    
+
+    /**
+     * visit all JCE providers to collect available services and algorithms
+     */
     private void buildDictionary() {
         providers.clear();
         
         Iterator<Provider> itrProvider = Providers.getFullProviderList().providers().iterator();
-
+        // collect providers list
         while(itrProvider.hasNext()) {
             Provider provider = itrProvider.next();
             providers.put(provider.getName(), provider);
             services.put(provider.getName(), new HashMap<>());
             algorithms.put(provider.getName(), new HashMap<>());
         }
-        
-        for(Map.Entry<String, Provider> entry:  providers.entrySet()) {
-            Iterator<Service> itrService = entry.getValue().getServices().iterator();
+        // collect available service and algorithms
+        for(Map.Entry<String, Provider> providerEntry:  providers.entrySet()) {
+            Iterator<Service> itrService = providerEntry.getValue().getServices().iterator();
             while(itrService.hasNext()) {
                 Service service = itrService.next();
-                if(!services.get(entry.getKey()).containsKey(service.getType())) {
-                    services.get(entry.getKey()).put(service.getType(), new ArrayList<Service>());
-                    algorithms.get(entry.getKey()).put(service.getType(), new HashSet<String>());
+                // if the service pops first time
+                if(!services.get(providerEntry.getKey()).containsKey(service.getType())) {
+                    services.get(providerEntry.getKey()).put(service.getType(), new ArrayList<Service>());
+                    algorithms.get(providerEntry.getKey()).put(service.getType(), new HashSet<String>());
                 }
-                services.get(entry.getKey()).get(service.getType()).add(service);
-                algorithms.get(entry.getKey()).get(service.getType()).add(service.getAlgorithm());
+                // add service and algorithm
+                services.get(providerEntry.getKey()).get(service.getType()).add(service);
+                algorithms.get(providerEntry.getKey()).get(service.getType()).add(service.getAlgorithm());
             }
         }
     }
 
+    /**
+     * retrieve available providers
+     * @return provider list
+     */
     public List<String> getAvailableProviders() {
         return new ArrayList<>(providers.keySet());
     }
 
+    /**
+     * get a provider with given name
+     * @param providerName provider name to be searched
+     * @return found procvider object
+     * @exception RuntimeException if the specified service name is not available
+     */
     public Provider getProvider(final String providerName) {
         if(providers.containsKey(providerName)) {
             return providers.get(providerName);
@@ -75,10 +94,21 @@ public class JCEProviderInfo {
         }
     }
 
+    /**
+     * check out the specified provider is available in the sysetem.
+     * @param providerName provider name to be validated
+     * @return true if the provider is availle, false otherwise
+     */
     public boolean isAvailableProvider(final String providerName) {
         return providers.containsKey(providerName);
     }
 
+    /**
+     * retrieve available service types which are available in the specified provider
+     * @param providerName provider name to be searched
+     * @return a list of service type names
+     * @exception RuntimeException if the specified provider name is not available
+     */
     public List<String> getAvailableServices(final String providerName) {
         if(services.containsKey(providerName)) {
             return new ArrayList<>(services.get(providerName).keySet());
@@ -87,6 +117,13 @@ public class JCEProviderInfo {
         }
     }
 
+    /**
+     * retrieve available services in the specified service type
+     * @param providerName provider name to be searched
+     * @param serviceTypeName service type name to filter out
+     * @return a list of Service
+     * @exception RuntimeException if the specified provider and service type are not available
+     */
     public List<Service> getServices(final String providerName, final String serviceTypeName) {
         if(services.containsKey(providerName) && services.get(providerName).containsKey(serviceTypeName)) {
             return new ArrayList<>(services.get(providerName).get(serviceTypeName));
@@ -96,6 +133,13 @@ public class JCEProviderInfo {
         }
     }
 
+    /**
+     * retrieve available algorithms in the specified service type
+     * @param providerName provider name to be searched
+     * @param serviceTypeName service type name to filter out
+     * @return a list of algorithm names
+     * @exception RuntimeException if the specified provider and service type are not available
+     */
     public List<String> getAvailableAlgorithm(final String providerName, final String serviceTypeName) {
         if(algorithms.containsKey(providerName) && algorithms.get(providerName).containsKey(serviceTypeName)) {
             return new ArrayList<>(algorithms.get(providerName).get(serviceTypeName));
@@ -105,10 +149,25 @@ public class JCEProviderInfo {
         }
     }
 
+    /**
+     * check out whether specified service type is available for the given provider
+     * @param providerName provider name to be searched
+     * @param serviceTypeName service type name to filter out
+     * @return true if available, false otherwise.
+     * @exception RuntimeException if the specified provider and service type are not available
+     */
     public boolean isAvailableService(final String providerName, final String serviceTypeName) {
         return services.containsKey(providerName) && services.get(providerName).containsKey(serviceTypeName);
     }
 
+    /**
+     * check out whether specified algorithm is available for the given provider
+     * @param providerName provider name to be searched
+     * @param serviceTypeName service type name to filter out
+     * @param algorithm algorithm name to filter out
+     * @return true if available, false otherwise.
+     * @exception RuntimeException if the specified provider and service type are not available
+     */
     public boolean isAvailableAlgorithm(final String providerName, final String serviceTypeName, final String algorithm) {
         return algorithms.containsKey(providerName) && algorithms.get(providerName).containsKey(serviceTypeName) &&
                 algorithms.get(providerName).get(serviceTypeName).contains(algorithm) ;
@@ -125,7 +184,7 @@ SUN version 1.8
 {{Configuration}}
 {{SecureRandom}}
 {{AlgorithmParameterGenerator}}
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 {{CertificateFactory}}
 {{KeyStore}}
 {{CertPathValidator}}
@@ -163,9 +222,9 @@ Algorithm:DSA
  SUN: AlgorithmParameterGenerator.DSA -> sun.security.provider.DSAParameterGenerator
   attributes: {ImplementedIn=Software, KeySize=2048}
 
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 Algorithm:DSA
- SUN: KeyPairGeneratorWrapper.DSA -> sun.security.provider.DSAKeyPairGenerator$Current
+ SUN: AsymmetricKeyPairGenerator.DSA -> sun.security.provider.DSAKeyPairGenerator$Current
   aliases: [OID.1.2.840.10040.4.1, 1.2.840.10040.4.1, 1.3.14.3.2.12]
   attributes: {ImplementedIn=Software, KeySize=2048}
 
@@ -278,7 +337,7 @@ Sun RSA signature provider
 SunRsaSign version 1.8
 -----------------------------------------------------
 {{Signature}}
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 {{KeyFactory}}
 
 {{Signature}}
@@ -317,9 +376,9 @@ Algorithm:SHA512withRSA
   aliases: [1.2.840.113549.1.1.13, OID.1.2.840.113549.1.1.13]
   attributes: {SupportedKeyClasses=java.security.interfaces.RSAPublicKey|java.security.interfaces.RSAPrivateKey}
 
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 Algorithm:RSA
- SunRsaSign: KeyPairGeneratorWrapper.RSA -> sun.security.rsa.RSAKeyPairGenerator
+ SunRsaSign: AsymmetricKeyPairGenerator.RSA -> sun.security.rsa.RSAKeyPairGenerator
   aliases: [1.2.840.113549.1.1, OID.1.2.840.113549.1.1]
 
 {{KeyFactory}}
@@ -334,7 +393,7 @@ Sun Elliptic Curve provider (EC, ECDSA, ECDH)
 SunEC version 1.8
 -----------------------------------------------------
 {{Signature}}
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 {{KeyAgreement}}
 {{KeyFactory}}
 {{AlgorithmParameters}}
@@ -369,9 +428,9 @@ Algorithm:SHA512withECDSA
   aliases: [OID.1.2.840.10045.4.3.4, 1.2.840.10045.4.3.4]
   attributes: {ImplementedIn=Software, SupportedKeyClasses=java.security.interfaces.ECPublicKey|java.security.interfaces.ECPrivateKey}
 
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 Algorithm:EC
- SunEC: KeyPairGeneratorWrapper.EC -> sun.security.ec.ECKeyPairGenerator
+ SunEC: AsymmetricKeyPairGenerator.EC -> sun.security.ec.ECKeyPairGenerator
   aliases: [EllipticCurve]
   attributes: {ImplementedIn=Software, KeySize=256}
 
@@ -400,7 +459,7 @@ SunJSSE version 1.8
 -----------------------------------------------------
 {{Signature}}
 {{TrustManagerFactory}}
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 {{SSLContext}}
 {{KeyStore}}
 {{KeyFactory}}
@@ -430,9 +489,9 @@ Algorithm:PKIX
  SunJSSE: TrustManagerFactory.PKIX -> sun.security.ssl.TrustManagerFactoryImpl$PKIXFactory
   aliases: [SunPKIX, X509, X.509]
 
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 Algorithm:RSA
- SunJSSE: KeyPairGeneratorWrapper.RSA -> sun.security.rsa.RSAKeyPairGenerator
+ SunJSSE: AsymmetricKeyPairGenerator.RSA -> sun.security.rsa.RSAKeyPairGenerator
   aliases: [1.2.840.113549.1.1, OID.1.2.840.113549.1.1]
 
 {{SSLContext}}
@@ -478,7 +537,7 @@ SunJCE version 1.8
 -----------------------------------------------------
 {{AlgorithmParameterGenerator}}
 {{Cipher}}
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 {{KeyAgreement}}
 {{KeyGenerator}}
 {{SecretKeyFactory}}
@@ -661,9 +720,9 @@ Algorithm:ARCFOUR
   aliases: [RC4]
   attributes: {SupportedPaddings=NOPADDING, SupportedKeyFormats=RAW, SupportedModes=ECB}
 
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 Algorithm:DiffieHellman
- SunJCE: KeyPairGeneratorWrapper.DiffieHellman -> com.sun.crypto.provider.DHKeyPairGenerator
+ SunJCE: AsymmetricKeyPairGenerator.DiffieHellman -> com.sun.crypto.provider.DHKeyPairGenerator
   aliases: [DH, OID.1.2.840.113549.1.3.1, 1.2.840.113549.1.3.1]
 
 {{KeyAgreement}}
@@ -1140,7 +1199,7 @@ BC version 1.6
 {{X509Store}}
 {{AlgorithmParameterGenerator}}
 {{SecureRandom}}
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 {{CertificateFactory}}
 {{KeyStore}}
 {{Mac}}
@@ -1297,60 +1356,60 @@ Algorithm:DEFAULT
 Algorithm:NONCEANDIV
  BC: SecureRandom.NONCEANDIV -> org.bouncycastle.jcajce.provider.drbg.DRBG$NonceAndIV
 
-{{KeyPairGeneratorWrapper}}
+{{AsymmetricKeyPairGenerator}}
 Algorithm:DSA
- BC: KeyPairGeneratorWrapper.DSA -> org.bouncycastle.jcajce.provider.asymmetric.dsa.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.DSA -> org.bouncycastle.jcajce.provider.asymmetric.dsa.KeyPairGeneratorSpi
   aliases: [1.2.840.10040.4.1, 1.3.14.3.2.27, 1.2.840.10040.4.3]
 
 Algorithm:DH
- BC: KeyPairGeneratorWrapper.DH -> org.bouncycastle.jcajce.provider.asymmetric.dh.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.DH -> org.bouncycastle.jcajce.provider.asymmetric.dh.KeyPairGeneratorSpi
   aliases: [DIFFIEHELLMAN, 1.2.840.113549.1.3.1, 1.2.840.10046.2.1]
 
 Algorithm:EC
- BC: KeyPairGeneratorWrapper.EC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$EC
+ BC: AsymmetricKeyPairGenerator.EC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$EC
   aliases: [1.2.840.10045.2.1, 1.3.133.16.840.63.0.3, 1.3.132.1.11.0, 1.3.132.1.14.0, 1.3.132.1.11.1, 1.3.132.1.14.1, 1.3.132.1.11.2, 1.3.132.1.14.2, 1.3.132.1.11.3, 1.3.132.1.14.3, 1.3.133.16.840.63.0.2]
 
 Algorithm:ECMQV
- BC: KeyPairGeneratorWrapper.ECMQV -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECMQV
+ BC: AsymmetricKeyPairGenerator.ECMQV -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECMQV
   aliases: [1.3.133.16.840.63.0.16, 1.3.132.1.15.0, 1.3.132.1.15.1, 1.3.132.1.15.2, 1.3.132.1.15.3]
 
 Algorithm:ECDSA
- BC: KeyPairGeneratorWrapper.ECDSA -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDSA
+ BC: AsymmetricKeyPairGenerator.ECDSA -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDSA
 
 Algorithm:ECDH
- BC: KeyPairGeneratorWrapper.ECDH -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
+ BC: AsymmetricKeyPairGenerator.ECDH -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
 
 Algorithm:ECDHWITHSHA1KDF
- BC: KeyPairGeneratorWrapper.ECDHWITHSHA1KDF -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
+ BC: AsymmetricKeyPairGenerator.ECDHWITHSHA1KDF -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
 
 Algorithm:ECDHC
- BC: KeyPairGeneratorWrapper.ECDHC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDHC
+ BC: AsymmetricKeyPairGenerator.ECDHC -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDHC
 
 Algorithm:ECIES
- BC: KeyPairGeneratorWrapper.ECIES -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
+ BC: AsymmetricKeyPairGenerator.ECIES -> org.bouncycastle.jcajce.provider.asymmetric.ec.KeyPairGeneratorSpi$ECDH
 
 Algorithm:RSA
- BC: KeyPairGeneratorWrapper.RSA -> org.bouncycastle.jcajce.provider.asymmetric.rsa.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.RSA -> org.bouncycastle.jcajce.provider.asymmetric.rsa.KeyPairGeneratorSpi
   aliases: [1.2.840.113549.1.1.1, 2.5.8.1.1, 1.2.840.113549.1.1.7, 1.2.840.113549.1.1.10]
 
 Algorithm:GOST3410
- BC: KeyPairGeneratorWrapper.GOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.gost.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.GOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.gost.KeyPairGeneratorSpi
   aliases: [GOST-3410, GOST-3410-94, 1.2.643.2.2.20]
 
 Algorithm:ECGOST3410
- BC: KeyPairGeneratorWrapper.ECGOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.ECGOST3410 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost.KeyPairGeneratorSpi
   aliases: [1.2.643.2.2.19, 1.2.643.2.2.98, ECGOST-3410, GOST-3410-2001]
 
 Algorithm:ECGOST3410-2012
- BC: KeyPairGeneratorWrapper.ECGOST3410-2012 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost12.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.ECGOST3410-2012 -> org.bouncycastle.jcajce.provider.asymmetric.ecgost12.KeyPairGeneratorSpi
   aliases: [1.2.643.7.1.1.1.1, 1.2.643.7.1.1.6.1, 1.2.643.7.1.1.1.2, 1.2.643.7.1.1.6.2, ECGOST3410-2012, GOST-3410-2012]
 
 Algorithm:ELGAMAL
- BC: KeyPairGeneratorWrapper.ELGAMAL -> org.bouncycastle.jcajce.provider.asymmetric.elgamal.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.ELGAMAL -> org.bouncycastle.jcajce.provider.asymmetric.elgamal.KeyPairGeneratorSpi
   aliases: [1.3.14.7.2.1.1]
 
 Algorithm:DSTU4145
- BC: KeyPairGeneratorWrapper.DSTU4145 -> org.bouncycastle.jcajce.provider.asymmetric.dstu.KeyPairGeneratorSpi
+ BC: AsymmetricKeyPairGenerator.DSTU4145 -> org.bouncycastle.jcajce.provider.asymmetric.dstu.KeyPairGeneratorSpi
   aliases: [1.2.804.2.1.1.1.1.3.1.1, 1.2.804.2.1.1.1.1.3.1.1.1.1, DSTU-4145, DSTU-4145-2002]
 
 {{CertificateFactory}}

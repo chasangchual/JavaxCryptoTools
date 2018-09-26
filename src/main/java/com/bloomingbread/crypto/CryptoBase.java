@@ -1,8 +1,9 @@
-package com.bloomingbread.blockchain.crypto.keygenerator;
+package com.bloomingbread.crypto;
 
 import com.bloomingbread.crypto.JCEProviderInfo;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import java.security.SecureRandom;
 import java.security.Security;
 import java.util.Arrays;
 
@@ -11,12 +12,14 @@ public abstract class CryptoBase {
         Security.addProvider(new BouncyCastleProvider());
     }
 
+    static SecureRandom secureRandom = new SecureRandom();
+
     final String providerName ;
     final String serviceName ;
     String recentAlgorithm = "" ;
     JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
 
-    public CryptoBase(final String providerName, final String serviceName, final String defaultAlgorithm) {
+    public CryptoBase(final String providerName, final String serviceName) {
         if(jceProviderInfo.isAvailableProvider(providerName)) {
             this.providerName = providerName;
         } else {
@@ -29,34 +32,13 @@ public abstract class CryptoBase {
             throw new RuntimeException(String.format("specified crypto service, %s is not available in %s.",
                     serviceName, providerName));
         }
-
-        if(jceProviderInfo.isAvailableAlgorithm(providerName, serviceName, defaultAlgorithm)) {
-            this.recentAlgorithm = defaultAlgorithm;
-        } else {
-            throw new RuntimeException(String.format("specified algorithm, %s is not available in %s, in %s.",
-                    defaultAlgorithm, serviceName, providerName));
-        }
     }
 
     public String getProviderName() {
         return providerName;
     }
-
     public String getServiceName() {
         return serviceName;
-    }
-
-    public String getRecentlyUsedAlgorithm() {
-        return recentAlgorithm;
-    }
-
-    public void updateRecentlyUsedAlgorithm(final String algorithm) {
-        if(jceProviderInfo.isAvailableAlgorithm(providerName, serviceName, algorithm)) {
-            this.recentAlgorithm = algorithm;
-        } else {
-            throw new RuntimeException(String.format("specified crypto service, %s is not available in %s.",
-                    serviceName, providerName));
-        }
     }
 
     @Override

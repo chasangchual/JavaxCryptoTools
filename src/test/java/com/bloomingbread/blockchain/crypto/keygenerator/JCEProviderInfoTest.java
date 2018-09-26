@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 // Available service in BC
 
-// X509Store, AlgorithmParameterGenerator, SecureRandom, KeyPairGenerator, CertificateFactory, KeyStore, Mac,
+// X509Store, AlgorithmParameterGenerator, SecureRandom, AsymmetricKeyPairGenerator, CertificateFactory, KeyStore, Mac,
 // X509StreamParser, CertPathValidator, Signature, Cipher, CertPathBuilder, MessageDigest, KeyAgreement,
 // KeyGenerator, SecretKeyFactory, CertStore, KeyFactory, AlgorithmParameters
 public class JCEProviderInfoTest {

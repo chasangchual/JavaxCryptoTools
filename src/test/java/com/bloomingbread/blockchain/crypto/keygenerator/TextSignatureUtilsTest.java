@@ -2,6 +2,7 @@ package com.bloomingbread.blockchain.crypto.keygenerator;
 
 import com.bloomingbread.blockchain.crypto.CryptoByteUtils;
 import com.bloomingbread.crypto.JCEProviderInfo;
+import com.bloomingbread.crypto.TextSignatureUtils;
 import org.junit.Test;
 
 import javax.crypto.SecretKey;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MessageSignatureUtilsTest {
+public class TextSignatureUtilsTest {
     @Test
     public void generateMessageSignature() throws Exception {
     }
@@ -30,7 +31,7 @@ public class MessageSignatureUtilsTest {
                 algorithmPairs.put(provider, new HashMap<>());
             }
 
-            if(providerInfo.isAvailableService(provider, MessageSignatureUtils.SEVICE) &&
+            if(providerInfo.isAvailableService(provider, TextSignatureUtils.SEVICE) &&
                     providerInfo.isAvailableService(provider, MessageCipherWrapper.SERVICE) &&
                     providerInfo.isAvailableService(provider, KeyGeneratorWrapper.SERVICE)) {
 
@@ -41,9 +42,9 @@ public class MessageSignatureUtilsTest {
                         MessageCipherWrapper.SERVICE);
 
                 List<String> signatureAlgorithms = providerInfo.getAvailableAlgorithm(provider,
-                        MessageSignatureUtils.SEVICE);
+                        TextSignatureUtils.SEVICE);
 
-                MessageSignatureUtils signatureUtils = new MessageSignatureUtils(provider, signatureAlgorithms.get(0));
+                TextSignatureUtils signatureUtils = new TextSignatureUtils(provider, signatureAlgorithms.get(0));
                 KeyGeneratorWrapper keyGenerator = new KeyGeneratorWrapper(provider, keyGeneratorAlgorithms.get(0));
 
                 byte[] message = CryptoByteUtils.randomString(60).getBytes("UTF-8");

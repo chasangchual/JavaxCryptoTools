@@ -2,6 +2,7 @@ package com.bloomingbread.blockchain.crypto.keygenerator;
 
 import com.bloomingbread.blockchain.crypto.CryptoByteUtils;
 import com.bloomingbread.crypto.JCEProviderInfo;
+import com.bloomingbread.crypto.AsymmetricKeyPairGenerator;
 import org.junit.Test;
 
 import javax.crypto.SecretKey;
@@ -98,21 +99,21 @@ public class MessageCipherWrapperTest {
 
         providers.forEach(provider -> {
             if(jceProviderInfo.isAvailableService(provider, MessageCipherWrapper.SERVICE)
-                    && jceProviderInfo.isAvailableService(provider, KeyPairGeneratorWrapper.SERVICE)) {
+                    && jceProviderInfo.isAvailableService(provider, AsymmetricKeyPairGenerator.SERVICE)) {
 
                 result.put(provider, new ConcurrentHashMap<>());
 
                 List<String> cipherAlgorithms = jceProviderInfo.getAvailableAlgorithm(provider, MessageCipherWrapper.SERVICE);
-                List<String> keypairGeneratorAlgorithms = jceProviderInfo.getAvailableAlgorithm(provider, KeyPairGeneratorWrapper.SERVICE);
+                List<String> keypairGeneratorAlgorithms = jceProviderInfo.getAvailableAlgorithm(provider, AsymmetricKeyPairGenerator.SERVICE);
 
                 MessageCipherWrapper messageCipherWrapper = new MessageCipherWrapper(provider, cipherAlgorithms.get(0));
-                KeyPairGeneratorWrapper keyPairGeneratorWrapper = new KeyPairGeneratorWrapper(provider, keypairGeneratorAlgorithms.get(0));
+                AsymmetricKeyPairGenerator asymmetricKeyPairGenerator = new AsymmetricKeyPairGenerator(provider, keypairGeneratorAlgorithms.get(0));
 
                 cipherAlgorithms.forEach(cipherAlgorithm -> {
                     result.get(provider).put(cipherAlgorithm, new Vector<>());
                     keypairGeneratorAlgorithms.forEach(keyGeneratorAlgorithm -> {
                         try {
-                            KeyPair key = keyPairGeneratorWrapper.newKeyPair(keyGeneratorAlgorithm);
+                            KeyPair key = asymmetricKeyPairGenerator.newKeyPair(keyGeneratorAlgorithm);
 
                             byte[] encrypted = messageCipherWrapper.encrypt(messsage, key.getPublic(), cipherAlgorithm);
                             byte[] decrypted = messageCipherWrapper.decrypt(encrypted, key.getPrivate(), cipherAlgorithm);
@@ -142,21 +143,21 @@ public class MessageCipherWrapperTest {
 
         providers.forEach(provider -> {
             if(jceProviderInfo.isAvailableService(provider, MessageCipherWrapper.SERVICE)
-                    && jceProviderInfo.isAvailableService(provider, KeyPairGeneratorWrapper.SERVICE)) {
+                    && jceProviderInfo.isAvailableService(provider, AsymmetricKeyPairGenerator.SERVICE)) {
 
                 result.put(provider, new ConcurrentHashMap<>());
 
                 List<String> cipherAlgorithms = jceProviderInfo.getAvailableAlgorithm(provider, MessageCipherWrapper.SERVICE);
-                List<String> keypairGeneratorAlgorithms = jceProviderInfo.getAvailableAlgorithm(provider, KeyPairGeneratorWrapper.SERVICE);
+                List<String> keypairGeneratorAlgorithms = jceProviderInfo.getAvailableAlgorithm(provider, AsymmetricKeyPairGenerator.SERVICE);
 
                 MessageCipherWrapper messageCipherWrapper = new MessageCipherWrapper(provider, cipherAlgorithms.get(0));
-                KeyPairGeneratorWrapper keyPairGeneratorWrapper = new KeyPairGeneratorWrapper(provider, keypairGeneratorAlgorithms.get(0));
+                AsymmetricKeyPairGenerator asymmetricKeyPairGenerator = new AsymmetricKeyPairGenerator(provider, keypairGeneratorAlgorithms.get(0));
 
                 cipherAlgorithms.forEach(cipherAlgorithm -> {
                     result.get(provider).put(cipherAlgorithm, new Vector<>());
                     keypairGeneratorAlgorithms.forEach(keyGeneratorAlgorithm -> {
                         try {
-                            KeyPair key = keyPairGeneratorWrapper.newKeyPair(keyGeneratorAlgorithm);
+                            KeyPair key = asymmetricKeyPairGenerator.newKeyPair(keyGeneratorAlgorithm);
 
                             byte[] encrypted = messageCipherWrapper.encrypt(messsage, key.getPrivate(), cipherAlgorithm);
                             byte[] decrypted = messageCipherWrapper.decrypt(encrypted, key.getPublic(), cipherAlgorithm);

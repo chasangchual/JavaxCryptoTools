@@ -3,7 +3,7 @@ package com.bloomingbread.crypto;
 import javax.crypto.*;
 import java.security.*;
 
-public class MessageCipher {
+public class MessageCipherTool {
     public static byte[] digest(final byte[] message, final String algorithm) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
         messageDigest.update(message);

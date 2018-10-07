@@ -14,6 +14,7 @@ public class JCEProviderInfoTest {
     @Test
     public void instance() throws Exception {
         JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
+        System.out.println(jceProviderInfo.toString());
     }
 
     @Test

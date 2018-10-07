@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TextSignatureUtilsTest {
-    @Test
+/*    @Test
     public void generateMessageSignature() throws Exception {
     }
 
@@ -90,6 +90,6 @@ public class TextSignatureUtilsTest {
 
     private boolean isValidCombition(String provide, String symenticKeyAlgorithm, String signatureAlgorithm, String cipherAlgorithm) {
         return false;
-    }
+    }*/
 
 }

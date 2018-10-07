@@ -2,24 +2,64 @@ package com.bloomingbread.crypto;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
-public class MessageDigestUtils extends CryptoBase {
+/**
+ * Message hash generator.
+ *
+ * Sangchual Cha (sangchual.cha@gmail.com)
+ */
+public class MessageDigestTool extends CryptoBase {
     public static String SERVICE = "MessageDigest";
 
-    public MessageDigestUtils(final String providerName) {
+    /**
+     * specify message digest provider
+     * @param providerName JCE provider name
+     */
+    public MessageDigestTool(final String providerName) {
         super(providerName, SERVICE);
     }
 
-    public MessageDigestUtils() {
+    public MessageDigestTool() {
         super(BouncyCastleProvider.PROVIDER_NAME, SERVICE);
     }
 
+    /**
+     * generate message hash.
+     * @param message target message
+     * @param algorithm algorithm to be applied. toString() shows available algorithms.
+     * @return generated hash in byte[]
+     * @throws NoSuchAlgorithmException
+     */
     public static byte[] digest(final byte[] message, final String algorithm) throws NoSuchAlgorithmException {
         return MessageDigest.getInstance(algorithm).digest(message);
+    }
+
+    /**
+     * generate message hash.
+     * @param file target file
+     * @param algorithm algorithm to be applied. toString() shows available algorithms.
+     * @return generated hash in byte[]
+     * @throws NoSuchAlgorithmException
+     */
+    public static byte[] digest(final File file, final String algorithm) throws NoSuchAlgorithmException, FileNotFoundException {
+        MessageDigest md = MessageDigest.getInstance(algorithm);
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            int readByte = 0;
+            while( (readByte = bis.read()) != -1) {
+                md.update((byte)readByte);
+            }
+            bis.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+        return md.digest();
     }
 
     public static String findMessageDigestAlgorithm(final byte[] message, final byte[] messageDigest) throws NoSuchAlgorithmException {
@@ -33,7 +73,7 @@ public class MessageDigestUtils extends CryptoBase {
             if(JCEProviderInfo.instance().isAvailableService(providers.get(i), SERVICE)) {
                 List<String> algorithms = providerInfo.getAvailableAlgorithm(providers.get(i), SERVICE);
                 for(int k = 0; !found && k < algorithms.size(); k++) {
-                    if(Arrays.equals(messageDigest, MessageCipher.digest(message, algorithms.get(k)))) {
+                    if(Arrays.equals(messageDigest, MessageCipherTool.digest(message, algorithms.get(k)))) {
                         found = true;
                         algorithm = algorithms.get(k);
                     }

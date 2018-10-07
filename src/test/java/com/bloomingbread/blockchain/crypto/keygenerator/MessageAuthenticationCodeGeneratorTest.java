@@ -14,7 +14,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class MessageAuthenticationCodeGeneratorTest {
-    @Test
+/*    @Test
     public void getAuthenticationCode() throws Exception {
         MessageAuthenticationCodeGenerator macWrapper = new MessageAuthenticationCodeGenerator();
         KeyGeneratorWrapper keyGeneratorWrapper = new KeyGeneratorWrapper();
@@ -54,5 +54,5 @@ public class MessageAuthenticationCodeGeneratorTest {
                 System.out.println(String.format("%s", Arrays.toString(algorithms.toArray())));
             }
         });
-    }
+    }*/
 }

@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DigitalSignatureUtilsTest {
-
+/*
     @Test
     public void veriySignature() throws UnsupportedEncodingException {
         JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
@@ -70,5 +70,5 @@ public class DigitalSignatureUtilsTest {
                 System.out.println(String.format("%s", Arrays.toString(algorithms.toArray())));
             }
         });
-    }
+    }*/
 }

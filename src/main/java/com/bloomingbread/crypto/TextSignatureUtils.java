@@ -10,15 +10,16 @@ import java.security.NoSuchProviderException;
 import java.util.Arrays;
 
 public class TextSignatureUtils {
+/*
     public byte[] generateMessageSignature(final byte[] message, final SecretKey key, final String digestAlgorithm,
                                            final String cipherAlgorithm)
             throws NoSuchAlgorithmException, NoSuchProviderException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
 
-        byte[] digest = MessageDigestUtils.digest(message, digestAlgorithm);
+        byte[] digest = MessageDigestTool.digest(message, digestAlgorithm);
 
-        MessageDigestUtils cipher = new MessageDigestUtils();
-        MessageCipher.
-        byte[] cipherText = MessageDigestUtils.encrypt(digest, key, cipherAlgorithm);
+        MessageDigestTool cipher = new MessageDigestTool();
+        MessageCipherTool.digest()
+        byte[] cipherText = MessageDigestTool.encrypt(digest, key, cipherAlgorithm);
 
         return cipherText;
     }
@@ -35,4 +36,5 @@ public class TextSignatureUtils {
 
         return Arrays.equals(signature, cipherText);
     }
+*/
 }

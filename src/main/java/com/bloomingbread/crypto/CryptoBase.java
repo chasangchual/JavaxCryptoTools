@@ -16,7 +16,6 @@ public abstract class CryptoBase {
 
     final String providerName ;
     final String serviceName ;
-    String recentAlgorithm = "" ;
     JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
 
     public CryptoBase(final String providerName, final String serviceName) {
@@ -46,7 +45,6 @@ public abstract class CryptoBase {
         StringBuilder sb = new StringBuilder();
         sb.append("provider: " + providerName + "\n");
         sb.append("crypto service: " + serviceName + "\n");
-        sb.append("recently used algorithm" + recentAlgorithm + "\n");
         sb.append(Arrays.toString(JCEProviderInfo.instance().getAvailableAlgorithm(providerName, serviceName).toArray()));
         return sb.toString();
     }

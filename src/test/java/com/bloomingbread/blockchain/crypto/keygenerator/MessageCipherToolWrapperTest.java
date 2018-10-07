@@ -41,8 +41,8 @@ import static org.junit.Assert.assertArrayEquals;
  * RSA/1, RSA/2, RSA/OAEP,
  * RSA/ISO9796-1, ELGAMAL, ELGAMAL/PKCS1, BROKENPBEWITHMD5ANDDES, BROKENPBEWITHSHA1ANDDES, OLDPBEWITHSHAANDTWOFISH-CBC]
  */
-public class MessageCipherWrapperTest {
-
+public class MessageCipherToolWrapperTest {
+/*
     @Test
     public void decryptSecretKey() throws Exception {
         JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
@@ -187,5 +187,5 @@ public class MessageCipherWrapperTest {
                 System.out.println(String.format("%s", Arrays.toString(algorithms.toArray())));
             }
         });
-    }
+    }*/
 }

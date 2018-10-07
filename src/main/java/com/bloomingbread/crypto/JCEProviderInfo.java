@@ -1,5 +1,7 @@
 package com.bloomingbread.crypto;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import sun.security.jca.Providers;
 
@@ -16,7 +18,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * collect and provide available JCE service and algorithm for each providers.
+ * collect available JCE service and algorithm for each providers.
+ *
+ * Sangchual Cha (sangchual.cha@gmail.com)
  */
 public class JCEProviderInfo {
     static {
@@ -42,30 +46,32 @@ public class JCEProviderInfo {
     }
 
     /**
-     * visit all JCE providers to collect available services and algorithms
+     * visit all JCE providers, and collect available services and algorithms
      */
     private void buildDictionary() {
         providers.clear();
         
         Iterator<Provider> itrProvider = Providers.getFullProviderList().providers().iterator();
-        // collect providers list
+
+        // traverse all providers and initiate collections
         while(itrProvider.hasNext()) {
             Provider provider = itrProvider.next();
             providers.put(provider.getName(), provider);
             services.put(provider.getName(), new HashMap<>());
             algorithms.put(provider.getName(), new HashMap<>());
         }
+
         // collect available service and algorithms
         for(Map.Entry<String, Provider> providerEntry:  providers.entrySet()) {
             Iterator<Service> itrService = providerEntry.getValue().getServices().iterator();
             while(itrService.hasNext()) {
                 Service service = itrService.next();
-                // if the service pops first time
+                // initialize collection if the service comes up first time
                 if(!services.get(providerEntry.getKey()).containsKey(service.getType())) {
                     services.get(providerEntry.getKey()).put(service.getType(), new ArrayList<Service>());
                     algorithms.get(providerEntry.getKey()).put(service.getType(), new HashSet<String>());
                 }
-                // add service and algorithm
+                // add service and algorithm name
                 services.get(providerEntry.getKey()).get(service.getType()).add(service);
                 algorithms.get(providerEntry.getKey()).get(service.getType()).add(service.getAlgorithm());
             }
@@ -73,7 +79,7 @@ public class JCEProviderInfo {
     }
 
     /**
-     * retrieve available providers
+     * retrieve all available providers
      * @return provider list
      */
     public List<String> getAvailableProviders() {
@@ -81,9 +87,9 @@ public class JCEProviderInfo {
     }
 
     /**
-     * get a provider with given name
-     * @param providerName provider name to be searched
-     * @return found procvider object
+     * get a provider object with the given name
+     * @param providerName provider name to search
+     * @return found provider object
      * @exception RuntimeException if the specified service name is not available
      */
     public Provider getProvider(final String providerName) {
@@ -96,16 +102,16 @@ public class JCEProviderInfo {
 
     /**
      * check out the specified provider is available in the sysetem.
-     * @param providerName provider name to be validated
-     * @return true if the provider is availle, false otherwise
+     * @param providerName provider name to validate
+     * @return true if the provider is available, false otherwise
      */
     public boolean isAvailableProvider(final String providerName) {
         return providers.containsKey(providerName);
     }
 
     /**
-     * retrieve available service types which are available in the specified provider
-     * @param providerName provider name to be searched
+     * retrieve all available service types in the specified provider
+     * @param providerName provider name to search
      * @return a list of service type names
      * @exception RuntimeException if the specified provider name is not available
      */
@@ -135,7 +141,7 @@ public class JCEProviderInfo {
 
     /**
      * retrieve available algorithms in the specified service type
-     * @param providerName provider name to be searched
+     * @param providerName provider name to search
      * @param serviceTypeName service type name to filter out
      * @return a list of algorithm names
      * @exception RuntimeException if the specified provider and service type are not available
@@ -171,6 +177,12 @@ public class JCEProviderInfo {
     public boolean isAvailableAlgorithm(final String providerName, final String serviceTypeName, final String algorithm) {
         return algorithms.containsKey(providerName) && algorithms.get(providerName).containsKey(serviceTypeName) &&
                 algorithms.get(providerName).get(serviceTypeName).contains(algorithm) ;
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(providers);
     }
 }
 

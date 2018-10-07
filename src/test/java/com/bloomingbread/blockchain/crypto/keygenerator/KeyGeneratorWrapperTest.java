@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class KeyGeneratorWrapperTest {
-    @Test
+/*    @Test
     public void toStringTest() {
         JCEProviderInfo jceProviderInfo = JCEProviderInfo.instance();
         List<String> providers = jceProviderInfo.getAvailableProviders();
@@ -63,5 +63,5 @@ public class KeyGeneratorWrapperTest {
 
     @Test
     public void CryptoPermissionCollection() {
-    }
+    }*/
 }

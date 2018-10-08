@@ -80,6 +80,14 @@ public class MessageDigestTool extends CryptoBase {
         return md.digest();
     }
 
+    /**
+     * find hash algorithm with the message and the digest. try possible digest algorithm and find matching algorithm.
+     * @param message target message
+     * @param messageDigest digest message to search
+     * @return algorithm name.
+     * @throws NoSuchAlgorithmException failed to search matching hash algorithm
+     * @throws NoSuchProviderException invalid jce implementation provider
+     */
     public static String findMessageDigestAlgorithm(final byte[] message, final byte[] messageDigest)
             throws NoSuchAlgorithmException, NoSuchProviderException {
         boolean found = false;

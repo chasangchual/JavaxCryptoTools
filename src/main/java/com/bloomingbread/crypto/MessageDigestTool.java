@@ -5,6 +5,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class MessageDigestTool extends CryptoBase {
     public static String SERVICE = "MessageDigest";
-
+    public static String PROVIDER = BouncyCastleProvider.PROVIDER_NAME;
     /**
      * specify message digest provider
      * @param providerName JCE provider name
@@ -33,10 +34,26 @@ public class MessageDigestTool extends CryptoBase {
      * @param message target message
      * @param algorithm algorithm to be applied. toString() shows available algorithms.
      * @return generated hash in byte[]
-     * @throws NoSuchAlgorithmException
+     * @throws NoSuchAlgorithmException invalid algorithm
+     * @throws NoSuchProviderException invalid jce implementation provider
      */
-    public static byte[] digest(final byte[] message, final String algorithm) throws NoSuchAlgorithmException {
-        return MessageDigest.getInstance(algorithm).digest(message);
+    public static byte[] digest(final byte[] message, final String algorithm)
+            throws NoSuchAlgorithmException, NoSuchProviderException {
+        return digest(PROVIDER, message, algorithm);
+    }
+
+    /**
+     * generate message hash.
+     * @param provider jce implementation provider
+     * @param message target message
+     * @param algorithm algorithm to be applied. toString() shows available algorithms.
+     * @return generated hash in byte[]
+     * @throws NoSuchAlgorithmException invalid algorithm
+     * @throws NoSuchProviderException invalid jce implementation provider
+     */
+    public static byte[] digest(final String provider, final byte[] message, final String algorithm)
+            throws NoSuchAlgorithmException, NoSuchProviderException {
+        return MessageDigest.getInstance(algorithm, provider).digest(message);
     }
 
     /**
@@ -46,7 +63,8 @@ public class MessageDigestTool extends CryptoBase {
      * @return generated hash in byte[]
      * @throws NoSuchAlgorithmException
      */
-    public static byte[] digest(final File file, final String algorithm) throws NoSuchAlgorithmException, FileNotFoundException {
+    public static byte[] digest(final File file, final String algorithm)
+            throws NoSuchAlgorithmException, FileNotFoundException {
         MessageDigest md = MessageDigest.getInstance(algorithm);
         try {
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
@@ -62,7 +80,8 @@ public class MessageDigestTool extends CryptoBase {
         return md.digest();
     }
 
-    public static String findMessageDigestAlgorithm(final byte[] message, final byte[] messageDigest) throws NoSuchAlgorithmException {
+    public static String findMessageDigestAlgorithm(final byte[] message, final byte[] messageDigest)
+            throws NoSuchAlgorithmException, NoSuchProviderException {
         boolean found = false;
         String algorithm = "digest algorithm not found";
         JCEProviderInfo providerInfo = JCEProviderInfo.instance();
@@ -73,7 +92,7 @@ public class MessageDigestTool extends CryptoBase {
             if(JCEProviderInfo.instance().isAvailableService(providers.get(i), SERVICE)) {
                 List<String> algorithms = providerInfo.getAvailableAlgorithm(providers.get(i), SERVICE);
                 for(int k = 0; !found && k < algorithms.size(); k++) {
-                    if(Arrays.equals(messageDigest, MessageCipherTool.digest(message, algorithms.get(k)))) {
+                    if(Arrays.equals(messageDigest, digest(message, algorithms.get(k)))) {
                         found = true;
                         algorithm = algorithms.get(k);
                     }
